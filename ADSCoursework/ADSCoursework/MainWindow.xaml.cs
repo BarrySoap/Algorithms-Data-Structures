@@ -15,19 +15,30 @@ using System.Windows.Shapes;
 
 namespace ADSCoursework
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
+        /*****          Set Up Lists            *****/
+        List<Piece> whitePieces = new List<Piece>();
+        List<Piece> blackPieces = new List<Piece>();
+        Player playerOne = new Player();
+        Player playerTwo = new Player();
+        /********************************************/
+
         public MainWindow()
         {
             InitializeComponent();
+            for (int i = 0; i < 12; i++)
+            {
+                Piece whitePiece = new Piece("White");
+                Piece blackPiece = new Piece("Black");
+                whitePieces.Add(whitePiece);
+                blackPieces.Add(blackPiece);
+            }
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test Button");
+            
         }
 
         private void btnCell2_Click(object sender, RoutedEventArgs e)

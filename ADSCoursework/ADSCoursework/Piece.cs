@@ -8,6 +8,11 @@ namespace ADSCoursework
 {
     class Piece
     {
+        public Piece(string col)
+        {
+            colour = col;
+        }
+
         /*****   Piece Variables   *****/
         private float position;
         private float newPosition;
@@ -16,17 +21,17 @@ namespace ADSCoursework
         /*******************************/
 
         /*****            Get Methods            *****/
-        float GetPosition() { return position; }
-        float GetNewPosition() { return newPosition; }
-        string GetColour() { return colour; }
-        bool IsPieceKing() { return kingship; }
+        public float GetPosition() { return position; }
+        public float GetNewPosition() { return newPosition; }
+        public string GetColour() { return colour; }
+        public bool IsPieceKing() { return kingship; }
         /*********************************************/
 
-        /*****                  Set Methods                  *****/
-        void SetPosition(float pos) { position = pos; }
-        void SetNewPosition(float newPos) { newPosition = newPos; }
-        void SetColour(string col) { colour = col; }
-        void SetPieceAsKing(bool type) { kingship = type; }
+        /*****                 Set Methods                   *****/
+        public void SetPosition(float pos) { position = pos; }
+        public void SetNewPosition(float newPos) { newPosition = newPos; }
+        public void SetColour(string col) { colour = col; }
+        public void SetPieceAsKing(bool type) { kingship = type; }
         /*********************************************************/
     }
 }
