@@ -20,9 +20,12 @@ namespace ADSCoursework
         /*****          Set Up Lists            *****/
         List<Piece> whitePieces = new List<Piece>();
         List<Piece> blackPieces = new List<Piece>();
+        /********************************************/
+
+        /*****    Set Up Players    *****/
         Player playerOne = new Player();
         Player playerTwo = new Player();
-        /********************************************/
+        /********************************/
 
         public MainWindow()
         {
@@ -38,12 +41,12 @@ namespace ADSCoursework
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
-            
+            ConsoleAllocator.ShowConsoleWindow();
         }
 
         private void btnCell2_Click(object sender, RoutedEventArgs e)
         {
-
+            Console.WriteLine("fdiugn");
         }
 
         private void btnCell3_Click(object sender, RoutedEventArgs e)
