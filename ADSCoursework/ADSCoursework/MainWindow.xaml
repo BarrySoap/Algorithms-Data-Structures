@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ADSCoursework"
         mc:Ignorable="d"
-        Title="MainWindow" Height="451" Width="428">
+        Title="MainWindow" Height="466.117" Width="672.397">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -104,6 +104,8 @@
         <Button x:Name="btnCell62" Content="" HorizontalAlignment="Left" Height="50" Margin="261,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell62_Click"/>
         <Button x:Name="btnCell63" Content="" HorizontalAlignment="Left" Height="50" Margin="311,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell63_Click"/>
         <Button x:Name="btnCell64" Content="" HorizontalAlignment="Left" Height="50" Margin="361,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell64_Click"/>
+        <Button x:Name="btnConsole" Content="Show Console" HorizontalAlignment="Left" Height="50" Margin="469,129,0,0" VerticalAlignment="Top" Width="150" Click="btnConsole_Click"/>
+        <Button x:Name="btnCloseConsole" Content="Hide Console" HorizontalAlignment="Left" Height="50" Margin="469,229,0,0" VerticalAlignment="Top" Width="150" Click="btnCloseConsole_Click"/>
 
     </Grid>
 </Window>

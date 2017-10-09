@@ -23,9 +23,42 @@ namespace ADSCoursework
         /********************************************/
 
         /*****    Set Up Players    *****/
-        Player playerOne = new Player();
-        Player playerTwo = new Player();
+        Player playerOne = new Player("White");
+        Player playerTwo = new Player("Black");
         /********************************/
+
+        public void SetBackgrounds()
+        {
+            /***** Set Initial Black Pieces *****/
+            btnCell1.Background = Brushes.Black;
+            btnCell3.Background = Brushes.Black;
+            btnCell5.Background = Brushes.Black;
+            btnCell7.Background = Brushes.Black;
+            btnCell10.Background = Brushes.Black;
+            btnCell12.Background = Brushes.Black;
+            btnCell14.Background = Brushes.Black;
+            btnCell16.Background = Brushes.Black;
+            btnCell17.Background = Brushes.Black;
+            btnCell19.Background = Brushes.Black;
+            btnCell21.Background = Brushes.Black;
+            btnCell23.Background = Brushes.Black;
+            /************************************/
+
+            /***** Set Initial White Pieces *****/
+            btnCell42.Background = Brushes.White;
+            btnCell44.Background = Brushes.White;
+            btnCell46.Background = Brushes.White;
+            btnCell48.Background = Brushes.White;
+            btnCell49.Background = Brushes.White;
+            btnCell51.Background = Brushes.White;
+            btnCell53.Background = Brushes.White;
+            btnCell55.Background = Brushes.White;
+            btnCell58.Background = Brushes.White;
+            btnCell60.Background = Brushes.White;
+            btnCell62.Background = Brushes.White;
+            btnCell64.Background = Brushes.White;
+            /************************************/
+        }
 
         public MainWindow()
         {
@@ -37,16 +70,17 @@ namespace ADSCoursework
                 whitePieces.Add(whitePiece);
                 blackPieces.Add(blackPiece);
             }
+            SetBackgrounds();
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
-            ConsoleAllocator.ShowConsoleWindow();
+            
         }
 
         private void btnCell2_Click(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("fdiugn");
+            
         }
 
         private void btnCell3_Click(object sender, RoutedEventArgs e)
@@ -357,6 +391,16 @@ namespace ADSCoursework
         private void btnCell64_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void btnConsole_Click(object sender, RoutedEventArgs e)
+        {
+            ConsoleAllocator.ShowConsoleWindow();
+        }
+
+        private void btnCloseConsole_Click(object sender, RoutedEventArgs e)
+        {
+            ConsoleAllocator.HideConsoleWindow();
         }
     }
 }
