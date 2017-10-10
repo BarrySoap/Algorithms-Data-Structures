@@ -27,38 +27,11 @@ namespace ADSCoursework
         Player playerTwo = new Player("Black");
         /********************************/
 
-        public void SetBackgrounds()
-        {
-            /***** Set Initial Black Pieces *****/
-            btnCell1.Background = Brushes.Black;
-            btnCell3.Background = Brushes.Black;
-            btnCell5.Background = Brushes.Black;
-            btnCell7.Background = Brushes.Black;
-            btnCell10.Background = Brushes.Black;
-            btnCell12.Background = Brushes.Black;
-            btnCell14.Background = Brushes.Black;
-            btnCell16.Background = Brushes.Black;
-            btnCell17.Background = Brushes.Black;
-            btnCell19.Background = Brushes.Black;
-            btnCell21.Background = Brushes.Black;
-            btnCell23.Background = Brushes.Black;
-            /************************************/
-
-            /***** Set Initial White Pieces *****/
-            btnCell42.Background = Brushes.White;
-            btnCell44.Background = Brushes.White;
-            btnCell46.Background = Brushes.White;
-            btnCell48.Background = Brushes.White;
-            btnCell49.Background = Brushes.White;
-            btnCell51.Background = Brushes.White;
-            btnCell53.Background = Brushes.White;
-            btnCell55.Background = Brushes.White;
-            btnCell58.Background = Brushes.White;
-            btnCell60.Background = Brushes.White;
-            btnCell62.Background = Brushes.White;
-            btnCell64.Background = Brushes.White;
-            /************************************/
-        }
+        /***** General Variables *****/
+        string turn = "White";
+        Button currentCell = new Button();
+        //Facade facade = new Facade();
+        /*****************************/
 
         public MainWindow()
         {
@@ -70,17 +43,19 @@ namespace ADSCoursework
                 whitePieces.Add(whitePiece);
                 blackPieces.Add(blackPiece);
             }
-            SetBackgrounds();
+            //facade.CommenceFacade();
+            txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
-            
+            currentCell = btnCell1;
+            Validations.IsSpaceEmpty(currentCell);
         }
 
         private void btnCell2_Click(object sender, RoutedEventArgs e)
         {
-            
+            currentCell = btnCell2;
         }
 
         private void btnCell3_Click(object sender, RoutedEventArgs e)
@@ -210,7 +185,7 @@ namespace ADSCoursework
 
         private void btnCell28_Click(object sender, RoutedEventArgs e)
         {
-
+            
         }
 
         private void btnCell29_Click(object sender, RoutedEventArgs e)
