@@ -12,7 +12,7 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <Border x:Name="brdMain" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Left" Height="400" Margin="10,10,0,0" VerticalAlignment="Top" Width="402">
-            <Button x:Name="btnCell2" Content="" HorizontalAlignment="Left" Height="50" Margin="50,347,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5" Click="btnCell2_Click">
+            <Button x:Name="btnCell2" Content="" HorizontalAlignment="Left" Height="50" Margin="50,347,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5" Click="btnCell1_Click">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -33,13 +33,13 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="btnCell3" Content="" HorizontalAlignment="Left" Height="50" Margin="111,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell3_Click"/>
-        <Button x:Name="btnCell4" Content="" HorizontalAlignment="Left" Height="50" Margin="161,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell4_Click"/>
-        <Button x:Name="btnCell5" Content="" HorizontalAlignment="Left" Height="50" Margin="211,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell5_Click"/>
-        <Button x:Name="btnCell6" Content="" HorizontalAlignment="Left" Height="50" Margin="261,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell6_Click"/>
-        <Button x:Name="btnCell7" Content="" HorizontalAlignment="Left" Height="50" Margin="311,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell7_Click"/>
-        <Button x:Name="btnCell8" Content="" HorizontalAlignment="Left" Height="50" Margin="361,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell8_Click"/>
-        <Button x:Name="btnCell9" Content="" HorizontalAlignment="Left" Height="50" Margin="10,309,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5" Click="btnCell9_Click">
+        <Button x:Name="btnCell3" Content="" HorizontalAlignment="Left" Height="50" Margin="111,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell4" Content="" HorizontalAlignment="Left" Height="50" Margin="161,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell5" Content="" HorizontalAlignment="Left" Height="50" Margin="211,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell6" Content="" HorizontalAlignment="Left" Height="50" Margin="261,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell7" Content="" HorizontalAlignment="Left" Height="50" Margin="311,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell8" Content="" HorizontalAlignment="Left" Height="50" Margin="361,359,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell9" Content="" HorizontalAlignment="Left" Height="50" Margin="10,309,0,0" VerticalAlignment="Top" Width="50" RenderTransformOrigin="0.5,0.5" Click="btnCell1_Click">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -49,61 +49,61 @@
                 </TransformGroup>
             </Button.RenderTransform>
         </Button>
-        <Button x:Name="btnCell10" Content="" HorizontalAlignment="Left" Height="50" Margin="61,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell10_Click"/>
-        <Button x:Name="btnCell11" Content="" HorizontalAlignment="Left" Height="50" Margin="111,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell11_Click"/>
-        <Button x:Name="btnCell12" Content="" HorizontalAlignment="Left" Height="50" Margin="161,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell12_Click"/>
-        <Button x:Name="btnCell13" Content="" HorizontalAlignment="Left" Height="50" Margin="211,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell13_Click"/>
-        <Button x:Name="btnCell14" Content="" HorizontalAlignment="Left" Height="50" Margin="261,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell14_Click"/>
-        <Button x:Name="btnCell15" Content="" HorizontalAlignment="Left" Height="50" Margin="311,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell15_Click"/>
-        <Button x:Name="btnCell16" Content="" HorizontalAlignment="Left" Height="50" Margin="361,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell16_Click"/>
-        <Button x:Name="btnCell17" Content="" HorizontalAlignment="Left" Height="50" Margin="11,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell17_Click"/>
-        <Button x:Name="btnCell18" Content="" HorizontalAlignment="Left" Height="50" Margin="61,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell18_Click"/>
-        <Button x:Name="btnCell19" Content="" HorizontalAlignment="Left" Height="50" Margin="111,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell19_Click"/>
-        <Button x:Name="btnCell20" Content="" HorizontalAlignment="Left" Height="50" Margin="161,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell20_Click"/>
-        <Button x:Name="btnCell21" Content="" HorizontalAlignment="Left" Height="50" Margin="211,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell21_Click"/>
-        <Button x:Name="btnCell22" Content="" HorizontalAlignment="Left" Height="50" Margin="261,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell22_Click"/>
-        <Button x:Name="btnCell23" Content="" HorizontalAlignment="Left" Height="50" Margin="311,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell23_Click"/>
-        <Button x:Name="btnCell24" Content="" HorizontalAlignment="Left" Height="50" Margin="361,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell24_Click"/>
-        <Button x:Name="btnCell25" Content="" HorizontalAlignment="Left" Height="50" Margin="11,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell25_Click"/>
-        <Button x:Name="btnCell26" Content="" HorizontalAlignment="Left" Height="50" Margin="61,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell26_Click"/>
-        <Button x:Name="btnCell27" Content="" HorizontalAlignment="Left" Height="50" Margin="111,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell27_Click"/>
-        <Button x:Name="btnCell28" Content="" HorizontalAlignment="Left" Height="50" Margin="161,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell28_Click"/>
-        <Button x:Name="btnCell29" Content="" HorizontalAlignment="Left" Height="50" Margin="211,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell29_Click"/>
-        <Button x:Name="btnCell30" Content="" HorizontalAlignment="Left" Height="50" Margin="261,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell30_Click"/>
-        <Button x:Name="btnCell31" Content="" HorizontalAlignment="Left" Height="50" Margin="311,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell31_Click"/>
-        <Button x:Name="btnCell32" Content="" HorizontalAlignment="Left" Height="50" Margin="361,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell32_Click"/>
-        <Button x:Name="btnCell33" Content="" HorizontalAlignment="Left" Height="50" Margin="11,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell33_Click"/>
-        <Button x:Name="btnCell34" Content="" HorizontalAlignment="Left" Height="50" Margin="61,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell34_Click"/>
-        <Button x:Name="btnCell35" Content="" HorizontalAlignment="Left" Height="50" Margin="111,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell35_Click"/>
-        <Button x:Name="btnCell36" Content="" HorizontalAlignment="Left" Height="50" Margin="161,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell36_Click"/>
-        <Button x:Name="btnCell37" Content="" HorizontalAlignment="Left" Height="50" Margin="211,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell37_Click"/>
-        <Button x:Name="btnCell38" Content="" HorizontalAlignment="Left" Height="50" Margin="261,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell38_Click"/>
-        <Button x:Name="btnCell39" Content="" HorizontalAlignment="Left" Height="50" Margin="311,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell39_Click"/>
-        <Button x:Name="btnCell40" Content="" HorizontalAlignment="Left" Height="50" Margin="361,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell40_Click"/>
-        <Button x:Name="btnCell41" Content="" HorizontalAlignment="Left" Height="50" Margin="11,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell41_Click"/>
-        <Button x:Name="btnCell42" Content="" HorizontalAlignment="Left" Height="50" Margin="61,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell42_Click"/>
-        <Button x:Name="btnCell43" Content="" HorizontalAlignment="Left" Height="50" Margin="111,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell43_Click"/>
-        <Button x:Name="btnCell44" Content="" HorizontalAlignment="Left" Height="50" Margin="161,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell44_Click"/>
-        <Button x:Name="btnCell45" Content="" HorizontalAlignment="Left" Height="50" Margin="211,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell45_Click"/>
-        <Button x:Name="btnCell46" Content="" HorizontalAlignment="Left" Height="50" Margin="261,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell46_Click"/>
-        <Button x:Name="btnCell47" Content="" HorizontalAlignment="Left" Height="50" Margin="311,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell47_Click"/>
-        <Button x:Name="btnCell48" Content="" HorizontalAlignment="Left" Height="50" Margin="361,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell48_Click"/>
-        <Button x:Name="btnCell49" Content="" HorizontalAlignment="Left" Height="50" Margin="11,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell49_Click"/>
-        <Button x:Name="btnCell50" Content="" HorizontalAlignment="Left" Height="50" Margin="61,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell50_Click"/>
-        <Button x:Name="btnCell51" Content="" HorizontalAlignment="Left" Height="50" Margin="111,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell51_Click"/>
-        <Button x:Name="btnCell52" Content="" HorizontalAlignment="Left" Height="50" Margin="161,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell52_Click"/>
-        <Button x:Name="btnCell53" Content="" HorizontalAlignment="Left" Height="50" Margin="211,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell53_Click"/>
-        <Button x:Name="btnCell54" Content="" HorizontalAlignment="Left" Height="50" Margin="261,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell54_Click"/>
-        <Button x:Name="btnCell55" Content="" HorizontalAlignment="Left" Height="50" Margin="311,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell55_Click"/>
-        <Button x:Name="btnCell56" Content="" HorizontalAlignment="Left" Height="50" Margin="361,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell56_Click"/>
-        <Button x:Name="btnCell57" Content="" HorizontalAlignment="Left" Height="50" Margin="11,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell57_Click"/>
-        <Button x:Name="btnCell58" Content="" HorizontalAlignment="Left" Height="50" Margin="61,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell58_Click"/>
-        <Button x:Name="btnCell59" Content="" HorizontalAlignment="Left" Height="50" Margin="111,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell59_Click"/>
-        <Button x:Name="btnCell60" Content="" HorizontalAlignment="Left" Height="50" Margin="161,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell60_Click"/>
-        <Button x:Name="btnCell61" Content="" HorizontalAlignment="Left" Height="50" Margin="211,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell61_Click"/>
-        <Button x:Name="btnCell62" Content="" HorizontalAlignment="Left" Height="50" Margin="261,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell62_Click"/>
-        <Button x:Name="btnCell63" Content="" HorizontalAlignment="Left" Height="50" Margin="311,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell63_Click"/>
-        <Button x:Name="btnCell64" Content="" HorizontalAlignment="Left" Height="50" Margin="361,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell64_Click"/>
+        <Button x:Name="btnCell10" Content="" HorizontalAlignment="Left" Height="50" Margin="61,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell11" Content="" HorizontalAlignment="Left" Height="50" Margin="111,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell12" Content="" HorizontalAlignment="Left" Height="50" Margin="161,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell13" Content="" HorizontalAlignment="Left" Height="50" Margin="211,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell14" Content="" HorizontalAlignment="Left" Height="50" Margin="261,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell15" Content="" HorizontalAlignment="Left" Height="50" Margin="311,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell16" Content="" HorizontalAlignment="Left" Height="50" Margin="361,309,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell17" Content="" HorizontalAlignment="Left" Height="50" Margin="11,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell18" Content="" HorizontalAlignment="Left" Height="50" Margin="61,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell19" Content="" HorizontalAlignment="Left" Height="50" Margin="111,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell20" Content="" HorizontalAlignment="Left" Height="50" Margin="161,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell21" Content="" HorizontalAlignment="Left" Height="50" Margin="211,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell22" Content="" HorizontalAlignment="Left" Height="50" Margin="261,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell23" Content="" HorizontalAlignment="Left" Height="50" Margin="311,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell24" Content="" HorizontalAlignment="Left" Height="50" Margin="361,259,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell25" Content="" HorizontalAlignment="Left" Height="50" Margin="11,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell26" Content="" HorizontalAlignment="Left" Height="50" Margin="61,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell27" Content="" HorizontalAlignment="Left" Height="50" Margin="111,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell28" Content="" HorizontalAlignment="Left" Height="50" Margin="161,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell29" Content="" HorizontalAlignment="Left" Height="50" Margin="211,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell30" Content="" HorizontalAlignment="Left" Height="50" Margin="261,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell31" Content="" HorizontalAlignment="Left" Height="50" Margin="311,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell32" Content="" HorizontalAlignment="Left" Height="50" Margin="361,209,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell33" Content="" HorizontalAlignment="Left" Height="50" Margin="11,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell34" Content="" HorizontalAlignment="Left" Height="50" Margin="61,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell35" Content="" HorizontalAlignment="Left" Height="50" Margin="111,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell36" Content="" HorizontalAlignment="Left" Height="50" Margin="161,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell37" Content="" HorizontalAlignment="Left" Height="50" Margin="211,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell38" Content="" HorizontalAlignment="Left" Height="50" Margin="261,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell39" Content="" HorizontalAlignment="Left" Height="50" Margin="311,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell40" Content="" HorizontalAlignment="Left" Height="50" Margin="361,159,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell41" Content="" HorizontalAlignment="Left" Height="50" Margin="11,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell42" Content="" HorizontalAlignment="Left" Height="50" Margin="61,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell43" Content="" HorizontalAlignment="Left" Height="50" Margin="111,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell44" Content="" HorizontalAlignment="Left" Height="50" Margin="161,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell45" Content="" HorizontalAlignment="Left" Height="50" Margin="211,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell46" Content="" HorizontalAlignment="Left" Height="50" Margin="261,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell47" Content="" HorizontalAlignment="Left" Height="50" Margin="311,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell48" Content="" HorizontalAlignment="Left" Height="50" Margin="361,109,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell49" Content="" HorizontalAlignment="Left" Height="50" Margin="11,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell50" Content="" HorizontalAlignment="Left" Height="50" Margin="61,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell51" Content="" HorizontalAlignment="Left" Height="50" Margin="111,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell52" Content="" HorizontalAlignment="Left" Height="50" Margin="161,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell53" Content="" HorizontalAlignment="Left" Height="50" Margin="211,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell54" Content="" HorizontalAlignment="Left" Height="50" Margin="261,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell55" Content="" HorizontalAlignment="Left" Height="50" Margin="311,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell56" Content="" HorizontalAlignment="Left" Height="50" Margin="361,59,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell57" Content="" HorizontalAlignment="Left" Height="50" Margin="11,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell58" Content="" HorizontalAlignment="Left" Height="50" Margin="61,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell59" Content="" HorizontalAlignment="Left" Height="50" Margin="111,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell60" Content="" HorizontalAlignment="Left" Height="50" Margin="161,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell61" Content="" HorizontalAlignment="Left" Height="50" Margin="211,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell62" Content="" HorizontalAlignment="Left" Height="50" Margin="261,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell63" Content="" HorizontalAlignment="Left" Height="50" Margin="311,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
+        <Button x:Name="btnCell64" Content="" HorizontalAlignment="Left" Height="50" Margin="361,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
         <Button x:Name="btnConsole" Content="Show Console" HorizontalAlignment="Left" Height="50" Margin="469,129,0,0" VerticalAlignment="Top" Width="150" Click="btnConsole_Click"/>
         <Button x:Name="btnCloseConsole" Content="Hide Console" HorizontalAlignment="Left" Height="50" Margin="469,229,0,0" VerticalAlignment="Top" Width="150" Click="btnCloseConsole_Click"/>
         <TextBox x:Name="txtTurnOrder" HorizontalAlignment="Left" Height="28" Margin="510,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>

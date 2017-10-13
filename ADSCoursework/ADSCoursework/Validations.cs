@@ -20,7 +20,7 @@ namespace ADSCoursework
         {
             if (cell.Background == Brushes.Gray)
             {
-                MessageBox.Show("ohey");
+                MessageBox.Show("Passed");
             }
         }
     }
