@@ -28,8 +28,9 @@ namespace ADSCoursework
         /********************************/
 
         /***** General Variables *****/
-        string turn = "White";
         Button currentCell = new Button();
+        Player currentPlayer = new Player("White");
+        Piece currentPiece = new Piece();
         Facade facade;
         /*****************************/
 
@@ -38,21 +39,27 @@ namespace ADSCoursework
             InitializeComponent();
             for (int i = 0; i < 12; i++)
             {
-                Piece whitePiece = new Piece("White");
-                Piece blackPiece = new Piece("Black");
+                Piece whitePiece = new Piece();
+                Piece blackPiece = new Piece();
+                whitePiece.SetColour("White");
+                blackPiece.SetColour("Black");
                 whitePieces.Add(whitePiece);
                 blackPieces.Add(blackPiece);
             }
             txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
             
             facade = new Facade(this);
-            facade.UseFacade(this);
+            facade.InitialFacade(this);
+            facade.UseFacade(this, currentPiece);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
-            currentCell = btnCell1;
+            currentCell = (Button)sender;
+            currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+            
             Validations.IsSpaceEmpty(currentCell);
+            Validations.IsPieceYours(currentCell, currentPlayer);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)
@@ -63,6 +70,19 @@ namespace ADSCoursework
         private void btnCloseConsole_Click(object sender, RoutedEventArgs e)
         {
             ConsoleAllocator.HideConsoleWindow();
+        }
+
+        private void btnEndTurn_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentPlayer.GetColour() == "White")
+            {
+                currentPlayer.SetColour("Black");
+                txtTurnOrder.Text = "Turn: Black";
+            } else
+            {
+                currentPlayer.SetColour("White");
+                txtTurnOrder.Text = "Turn: White";
+            }
         }
     }
 }

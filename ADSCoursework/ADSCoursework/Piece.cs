@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace ADSCoursework
 {
-    class Piece
+    public class Piece
     {
-        public Piece(string col)
+        public Piece()
         {
-            colour = col;
+            
         }
 
         /*****   Piece Variables   *****/
-        private float position;
-        private float newPosition;
+        private string position;
+        private string newPosition;
         private string colour;
         private bool kingship = false;
         /*******************************/
 
         /*****            Get Methods            *****/
-        public float GetPosition() { return position; }
-        public float GetNewPosition() { return newPosition; }
+        public string GetPosition() { return position; }
+        public string GetNewPosition() { return newPosition; }
         public string GetColour() { return colour; }
         public bool IsPieceKing() { return kingship; }
         /*********************************************/
 
         /*****                 Set Methods                   *****/
-        public void SetPosition(float pos) { position = pos; }
-        public void SetNewPosition(float newPos) { newPosition = newPos; }
+        public void SetPosition(string pos) { position = pos; }
+        public void SetNewPosition(string newPos) { newPosition = newPos; }
         public void SetColour(string col) { colour = col; }
         public void SetPieceAsKing(bool type) { kingship = type; }
         /*********************************************************/

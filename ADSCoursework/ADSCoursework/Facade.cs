@@ -12,7 +12,7 @@ namespace ADSCoursework
     class ButtonCleaning
     {
         Button[] buttonList = new Button[64];
-        
+
         public void CleanButtons(MainWindow main)
         {
             for (int i = 0; i < 64; i++)
@@ -51,18 +51,33 @@ namespace ADSCoursework
         }
     }
 
+    class TurnOrder
+    {
+        public void MovePiece(MainWindow main, Piece currentPiece)
+        {
+            
+        }
+    }
+
     public class Facade
     {
         ButtonCleaning cleaner;
+        TurnOrder turn;
 
         public Facade(MainWindow main)
         {
             cleaner = new ButtonCleaning();
+            turn = new TurnOrder();
         }
 
-        public void UseFacade(MainWindow main)
+        public void InitialFacade(MainWindow main)
         {
             cleaner.CleanButtons(main);
+        }
+
+        public void UseFacade(MainWindow main, Piece currentPiece)
+        {
+            turn.MovePiece(main, currentPiece);
         }
     }
 }
