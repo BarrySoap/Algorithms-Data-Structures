@@ -46,6 +46,7 @@ namespace ADSCoursework
             txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
             
             facade = new Facade(this);
+            facade.UseFacade(this);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
