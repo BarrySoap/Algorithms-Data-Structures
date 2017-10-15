@@ -26,12 +26,12 @@ namespace ADSCoursework
 
         public static void IsPieceYours(Button cell, Player player)
         {
-            if (cell.Background == Brushes.White && player.GetColour() == "White")
+            if (cell.Background == Brushes.White && player.GetColour() != "White")
             {
-                MessageBox.Show("Piece is White");
+                
             } else if (cell.Background == Brushes.Black && player.GetColour() == "Black")
             {
-                MessageBox.Show("Piece is Black");
+                
             }
         }
     }

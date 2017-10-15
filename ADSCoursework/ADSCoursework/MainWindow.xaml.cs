@@ -49,7 +49,7 @@ namespace ADSCoursework
             txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
             
             facade = new Facade(this);
-            facade.InitialFacade(this);
+            facade.InitialFacade(this, whitePieces, blackPieces);
             facade.UseFacade(this, currentPiece);
         }
 
