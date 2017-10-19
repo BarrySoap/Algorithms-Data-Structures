@@ -38,5 +38,16 @@ namespace ADSCoursework
                 
             }
         }
+
+        public static bool IsMoveValid(Button cell, int oldPosition, int newPosition)
+        {
+            if (Math.Abs(oldPosition - newPosition) == 9 || Math.Abs(oldPosition - newPosition) == 7)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
     }
 }

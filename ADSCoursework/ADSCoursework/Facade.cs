@@ -104,16 +104,24 @@ namespace ADSCoursework
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
-                            buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
-                            if (currentPiece.GetColour() == "White")
+                            if (Validations.IsMoveValid(currentCell, Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
                             {
-                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.White;
-                            }
-                            else
+                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
+                                if (currentPiece.GetColour() == "White")
+                                {
+                                    buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.White;
+                                }
+                                else
+                                {
+                                    buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
+                                }
+                                turnOrder--;
+                                break;
+                            } else
                             {
-                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
+                                MessageBox.Show("Move is not valid!");
+                                break;
                             }
-                            turnOrder--;
                             break;
                         } else
                         {

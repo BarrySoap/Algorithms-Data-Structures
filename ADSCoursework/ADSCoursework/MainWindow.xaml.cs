@@ -57,6 +57,7 @@ namespace ADSCoursework
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
             currentCell = (Button)sender;
+
             if (currentCell.Background == Brushes.White && turnOrder == 0)
             {
                 currentPiece.SetColour("White");
@@ -64,6 +65,7 @@ namespace ADSCoursework
             {
                 currentPiece.SetColour("Black");
             }
+
             facade.UseFacade(this, currentPiece, ref turnOrder, currentCell, buttonList);
         }
         
