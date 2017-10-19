@@ -29,8 +29,10 @@ namespace ADSCoursework
 
         /***** General Variables *****/
         Button currentCell = new Button();
+        Button[] buttonList = new Button[64];
         Player currentPlayer = new Player("White");
         Piece currentPiece = new Piece();
+        int turnOrder = 0;
         Facade facade;
         /*****************************/
 
@@ -49,17 +51,20 @@ namespace ADSCoursework
             txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
             
             facade = new Facade(this);
-            facade.InitialFacade(this, whitePieces, blackPieces);
-            facade.UseFacade(this, currentPiece);
+            facade.InitialFacade(this, whitePieces, blackPieces, buttonList);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
             currentCell = (Button)sender;
-            currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
-            
-            Validations.IsSpaceEmpty(currentCell);
-            Validations.IsPieceYours(currentCell, currentPlayer);
+            if (currentCell.Background == Brushes.White && turnOrder == 0)
+            {
+                currentPiece.SetColour("White");
+            } else if (currentCell.Background == Brushes.Black && turnOrder == 0)
+            {
+                currentPiece.SetColour("Black");
+            }
+            facade.UseFacade(this, currentPiece, ref turnOrder, currentCell, buttonList);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)

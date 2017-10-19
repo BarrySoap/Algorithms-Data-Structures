@@ -11,9 +11,7 @@ namespace ADSCoursework
 {
     class ButtonCleaning
     {
-        Button[] buttonList = new Button[64];
-
-        public void CleanButtons(MainWindow main)
+        public void CleanButtons(MainWindow main, Button[] buttonList)
         {
             for (int i = 0; i < 64; i++)
             {
@@ -86,9 +84,48 @@ namespace ADSCoursework
 
     class TurnOrder
     {
-        public void MovePiece(MainWindow main, Piece currentPiece)
+        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
         {
-            
+            switch (turnOrder)
+            {
+                case 0:
+                    if (Validations.IsSpaceEmpty(currentCell) == false)
+                    {
+                        currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+                        turnOrder++;
+                    } else
+                    {
+                        MessageBox.Show("Please select a piece!");
+                    }
+                    break;
+                case 1:
+                    if (currentCell.Name.ToString().Substring(7) != currentPiece.GetPosition())
+                    {
+                        if (Validations.IsSpaceEmpty(currentCell) == true)
+                        {
+                            currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
+                            buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
+                            if (currentPiece.GetColour() == "White")
+                            {
+                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.White;
+                            }
+                            else
+                            {
+                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
+                            }
+                            turnOrder--;
+                            break;
+                        } else
+                        {
+                            MessageBox.Show("Please move the piece to an empty space!");
+                            break;
+                        }
+                    } else
+                    {
+                        MessageBox.Show("You can't move a piece to the same place!");
+                        break;
+                    }
+            }
         }
     }
 
@@ -105,15 +142,15 @@ namespace ADSCoursework
             setPieces = new SetInitialPieces();
         }
 
-        public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces)
+        public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
         {
-            cleaner.CleanButtons(main);
+            cleaner.CleanButtons(main, buttonList);
             setPieces.SetPieces(main, whitePieces, blackPieces);
         }
 
-        public void UseFacade(MainWindow main, Piece currentPiece)
+        public void UseFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
         {
-            turn.MovePiece(main, currentPiece);
+            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList);
         }
     }
 }

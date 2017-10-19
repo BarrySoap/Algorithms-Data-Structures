@@ -16,11 +16,15 @@ namespace ADSCoursework
             
         }
 
-        public static void IsSpaceEmpty(Button cell)
+        public static bool IsSpaceEmpty(Button cell)
         {
             if (cell.Background == Brushes.Gray)
             {
-                MessageBox.Show("Space is Empty");
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
