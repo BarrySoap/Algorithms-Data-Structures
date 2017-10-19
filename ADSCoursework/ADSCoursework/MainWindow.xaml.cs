@@ -66,7 +66,7 @@ namespace ADSCoursework
                 currentPiece.SetColour("Black");
             }
 
-            facade.UseFacade(this, currentPiece, ref turnOrder, currentCell, buttonList);
+            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)
@@ -90,6 +90,11 @@ namespace ADSCoursework
                 currentPlayer.SetColour("White");
                 txtTurnOrder.Text = "Turn: White";
             }
+        }
+
+        private void btnUndo_Click(object sender, RoutedEventArgs e)
+        {
+            facade.undoFacade(this, ref turnOrder, currentCell, currentPlayer);
         }
     }
 }

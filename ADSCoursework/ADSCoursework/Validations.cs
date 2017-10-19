@@ -11,11 +11,6 @@ namespace ADSCoursework
 {
     class Validations
     {
-        public Validations(Piece piece, Button cell, Player currentPlayer)
-        {
-            
-        }
-
         public static bool IsSpaceEmpty(Button cell)
         {
             if (cell.Background == Brushes.Gray)
@@ -63,6 +58,18 @@ namespace ADSCoursework
             {
                 MessageBox.Show("Move is not valid!");
                 return false;
+            }
+        }
+
+        public static void CanPieceBeTaken(Button cell, ref Piece currentPiece, Button[] buttonList, int oldPosition)
+        {
+            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background == Brushes.Black)
+            {
+                buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background = Brushes.Cyan;
+            }
+            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black)
+            {
+                buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
             }
         }
     }

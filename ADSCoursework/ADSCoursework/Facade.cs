@@ -92,6 +92,7 @@ namespace ADSCoursework
                     if (Validations.IsSpaceEmpty(currentCell) == false)
                     {
                         currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()));
                         currentCell.Background = Brushes.Gold;
                         turnOrder++;
                     } else
@@ -105,6 +106,7 @@ namespace ADSCoursework
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
+
                             if (Validations.IsMoveValid(currentCell, currentPiece, 
                                 Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
                             {
@@ -138,17 +140,37 @@ namespace ADSCoursework
         }
     }
 
+    class UndoRedoMoves
+    {
+        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer)
+        {
+            if (turnOrder == 1)
+            {
+                turnOrder = 0;
+                if (currentPlayer.GetColour() == "White")
+                {
+                    currentCell.Background = Brushes.White;
+                } else
+                {
+                    currentCell.Background = Brushes.Black;
+                }
+            }
+        }
+    }
+
     public class Facade
     {
         ButtonCleaning cleaner;
         SetInitialPieces setPieces;
         TurnOrder turn;
+        UndoRedoMoves unredo;
 
         public Facade(MainWindow main)
         {
             cleaner = new ButtonCleaning();
             turn = new TurnOrder();
             setPieces = new SetInitialPieces();
+            unredo = new UndoRedoMoves();
         }
 
         public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
@@ -157,9 +179,14 @@ namespace ADSCoursework
             setPieces.SetPieces(main, whitePieces, blackPieces);
         }
 
-        public void UseFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
+        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
         {
             turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList);
+        }
+
+        public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer)
+        {
+            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer);
         }
     }
 }

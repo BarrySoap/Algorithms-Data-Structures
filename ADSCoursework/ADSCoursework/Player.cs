@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ADSCoursework
 {
-    class Player
+    public class Player
     {
         public Player(string col)
         {
