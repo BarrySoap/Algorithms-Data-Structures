@@ -104,7 +104,8 @@ namespace ADSCoursework
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
-                            if (Validations.IsMoveValid(currentCell, Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
+                            if (Validations.IsMoveValid(currentCell, currentPiece, 
+                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
                             {
                                 buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
                                 if (currentPiece.GetColour() == "White")

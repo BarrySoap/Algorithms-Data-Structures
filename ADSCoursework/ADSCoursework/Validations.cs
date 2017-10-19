@@ -39,13 +39,29 @@ namespace ADSCoursework
             }
         }
 
-        public static bool IsMoveValid(Button cell, int oldPosition, int newPosition)
+        public static bool IsMoveValid(Button cell, Piece currentPiece, int oldPosition, int newPosition)
         {
-            if (Math.Abs(oldPosition - newPosition) == 9 || Math.Abs(oldPosition - newPosition) == 7)
+            if (currentPiece.GetColour() == "White")
             {
-                return true;
+                if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            } else if (currentPiece.GetColour() == "Black")
+            {
+                if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
             } else
             {
+                MessageBox.Show("Move is not valid!");
                 return false;
             }
         }
