@@ -92,6 +92,7 @@ namespace ADSCoursework
                     if (Validations.IsSpaceEmpty(currentCell) == false)
                     {
                         currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+                        currentCell.Background = Brushes.Gold;
                         turnOrder++;
                     } else
                     {
@@ -123,7 +124,6 @@ namespace ADSCoursework
                                 MessageBox.Show("Move is not valid!");
                                 break;
                             }
-                            break;
                         } else
                         {
                             MessageBox.Show("Please move the piece to an empty space!");
