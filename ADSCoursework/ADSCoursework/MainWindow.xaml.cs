@@ -58,15 +58,23 @@ namespace ADSCoursework
         {
             currentCell = (Button)sender;
 
-            if (currentCell.Background == Brushes.White && turnOrder == 0)
+            if (turnOrder == 0 && Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer) == true)
             {
-                currentPiece.SetColour("White");
-            } else if (currentCell.Background == Brushes.Black && turnOrder == 0)
-            {
-                currentPiece.SetColour("Black");
-            }
+                if (currentCell.Background == Brushes.White && turnOrder == 0)
+                {
+                    currentPiece.SetColour("White");
+                }
+                else if (currentCell.Background == Brushes.Black && turnOrder == 0)
+                {
+                    currentPiece.SetColour("Black");
+                }
 
-            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+            }
+            if (turnOrder == 1 && Validations.IsSpaceEmpty(currentCell) == true)
+            {
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+            }
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)
