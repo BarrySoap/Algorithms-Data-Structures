@@ -23,14 +23,18 @@ namespace ADSCoursework
             }
         }
 
-        public static void IsPieceYours(Button cell, Player player)
+        public static bool IsPieceYours(Button cell, Player player)
         {
-            if (cell.Background == Brushes.White && player.GetColour() != "White")
+            if (cell.Background == Brushes.White && player.GetColour() == "White")
             {
-                
+                return true;
             } else if (cell.Background == Brushes.Black && player.GetColour() == "Black")
             {
-                
+                return true;
+            } else
+            {
+                MessageBox.Show("Piece is not yours!");
+                return false;
             }
         }
 
@@ -70,6 +74,14 @@ namespace ADSCoursework
             if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black)
             {
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
+            }
+            if (currentPiece.GetColour() == "Black" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background == Brushes.White)
+            {
+                buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background = Brushes.Cyan;
+            }
+            if (currentPiece.GetColour() == "Black" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background == Brushes.White)
+            {
+                buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background = Brushes.Cyan;
             }
         }
     }

@@ -94,7 +94,7 @@ namespace ADSCoursework
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.undoFacade(this, ref turnOrder, currentCell, currentPlayer);
+            facade.undoFacade(this, ref turnOrder, currentCell, currentPlayer, buttonList);
         }
     }
 }

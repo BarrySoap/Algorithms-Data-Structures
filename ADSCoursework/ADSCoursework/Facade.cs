@@ -142,7 +142,7 @@ namespace ADSCoursework
 
     class UndoRedoMoves
     {
-        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer)
+        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
         {
             if (turnOrder == 1)
             {
@@ -153,6 +153,17 @@ namespace ADSCoursework
                 } else
                 {
                     currentCell.Background = Brushes.Black;
+                }
+            }
+
+            for (int i = 0; i < buttonList.Length; i++)
+            {
+                if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
+                {
+                    buttonList[i].Background = Brushes.Black;
+                } else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                {
+                    buttonList[i].Background = Brushes.White;
                 }
             }
         }
@@ -184,9 +195,9 @@ namespace ADSCoursework
             turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList);
         }
 
-        public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer)
+        public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
         {
-            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer);
+            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList);
         }
     }
 }
