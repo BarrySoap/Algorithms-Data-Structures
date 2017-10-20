@@ -75,6 +75,7 @@ namespace ADSCoursework
             {
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
             }
+
             if (currentPiece.GetColour() == "Black" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background == Brushes.White)
             {
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background = Brushes.Cyan;

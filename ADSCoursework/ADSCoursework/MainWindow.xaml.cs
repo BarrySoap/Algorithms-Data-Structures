@@ -66,7 +66,7 @@ namespace ADSCoursework
                 currentPiece.SetColour("Black");
             }
 
-            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList);
+            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)

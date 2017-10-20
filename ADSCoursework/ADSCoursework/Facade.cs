@@ -84,7 +84,7 @@ namespace ADSCoursework
 
     class TurnOrder
     {
-        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
+        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer)
         {
             switch (turnOrder)
             {
@@ -103,6 +103,17 @@ namespace ADSCoursework
                 case 1:
                     if (currentCell.Name.ToString().Substring(7) != currentPiece.GetPosition())
                     {
+                        for (int i = 0; i < buttonList.Length; i++)
+                        {
+                            if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
+                            {
+                                buttonList[i].Background = Brushes.Black;
+                            } else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                            {
+                                buttonList[i].Background = Brushes.White;
+                            }
+                        }
+
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
@@ -190,9 +201,9 @@ namespace ADSCoursework
             setPieces.SetPieces(main, whitePieces, blackPieces);
         }
 
-        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList)
+        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer)
         {
-            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList);
+            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
         }
 
         public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
