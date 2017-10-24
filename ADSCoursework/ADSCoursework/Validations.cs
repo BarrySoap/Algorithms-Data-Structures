@@ -38,11 +38,11 @@ namespace ADSCoursework
             }
         }
 
-        public static bool IsMoveValid(Button cell, Piece currentPiece, int oldPosition, int newPosition)
+        public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition)
         {
             if (currentPiece.GetColour() == "White")
             {
-                if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9)
+                if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9 && buttonList[newPosition].Background == Brushes.Gray)
                 {
                     return true;
                 } else
@@ -51,7 +51,7 @@ namespace ADSCoursework
                 }
             } else if (currentPiece.GetColour() == "Black")
             {
-                if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9)
+                if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && buttonList[newPosition].Background == Brushes.Gray)
                 {
                     return true;
                 } else

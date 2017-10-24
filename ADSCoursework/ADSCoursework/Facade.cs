@@ -118,7 +118,7 @@ namespace ADSCoursework
                         {
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
 
-                            if (Validations.IsMoveValid(currentCell, currentPiece, 
+                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
                                 Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
                             {
                                 buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
@@ -158,12 +158,17 @@ namespace ADSCoursework
             if (turnOrder == 1)
             {
                 turnOrder = 0;
-                if (currentPlayer.GetColour() == "White")
+
+                for (int i = 0; i < buttonList.Length; i++)
                 {
-                    currentCell.Background = Brushes.White;
-                } else
-                {
-                    currentCell.Background = Brushes.Black;
+                    if (buttonList[i].Background == Brushes.Gold && currentPlayer.GetColour() == "White")
+                    {
+                        buttonList[i].Background = Brushes.White;
+                    }
+                    else if (buttonList[i].Background == Brushes.Gold && currentPlayer.GetColour() == "Black")
+                    {
+                        buttonList[i].Background = Brushes.Black;
+                    }
                 }
             }
 
