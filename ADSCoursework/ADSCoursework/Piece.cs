@@ -18,6 +18,7 @@ namespace ADSCoursework
         private string newPosition;
         private string colour;
         private bool kingship = false;
+        private bool isPieceOnEdge = false;
         /*******************************/
 
         /*****            Get Methods            *****/
@@ -25,6 +26,7 @@ namespace ADSCoursework
         public string GetNewPosition() { return newPosition; }
         public string GetColour() { return colour; }
         public bool IsPieceKing() { return kingship; }
+        public bool GetEdge() { return isPieceOnEdge; }
         /*********************************************/
 
         /*****                 Set Methods                   *****/
@@ -32,6 +34,7 @@ namespace ADSCoursework
         public void SetNewPosition(string newPos) { newPosition = newPos; }
         public void SetColour(string col) { colour = col; }
         public void SetPieceAsKing(bool type) { kingship = type; }
+        public void SetEdge(bool edge) { isPieceOnEdge = edge; }
         /*********************************************************/
     }
 }

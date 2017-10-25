@@ -47,6 +47,20 @@ namespace ADSCoursework
                 }
             }
         }
+
+        public void CleanEdges(MainWindow main, List<Piece> pieces)
+        {
+            for (int i = 0; i < pieces.Count; i++)
+            {
+                if (Convert.ToInt32(pieces[i].GetPosition()) % 8 == 0 || 
+                    Convert.ToInt32(pieces[i].GetPosition()) % 8 == 7|| 
+                    Convert.ToInt32(pieces[i].GetPosition()) > 55 || 
+                    Convert.ToInt32(pieces[i].GetPosition()) < 8)
+                {
+                    pieces[i].SetEdge(true);
+                }
+            }
+        }
     }
 
     class SetInitialPieces
@@ -204,6 +218,8 @@ namespace ADSCoursework
         {
             cleaner.CleanButtons(main, buttonList);
             setPieces.SetPieces(main, whitePieces, blackPieces);
+            cleaner.CleanEdges(main, whitePieces);
+            cleaner.CleanEdges(main, blackPieces);
         }
 
         public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer)
