@@ -106,7 +106,7 @@
         <Button x:Name="btnCell63" Content="" HorizontalAlignment="Left" Height="50" Margin="361,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
         <Button x:Name="btnConsole" Content="Show Console" HorizontalAlignment="Left" Height="50" Margin="469,109,0,0" VerticalAlignment="Top" Width="150" Click="btnConsole_Click"/>
         <Button x:Name="btnCloseConsole" Content="Hide Console" HorizontalAlignment="Left" Height="50" Margin="469,179,0,0" VerticalAlignment="Top" Width="150" Click="btnCloseConsole_Click"/>
-        <TextBox x:Name="txtTurnOrder" HorizontalAlignment="Left" Height="28" Margin="510,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="txtTurnOrder" HorizontalAlignment="Left" Height="28" Margin="510,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" IsEnabled="False"/>
         <Button x:Name="btnEndTurn" Content="End Turn" HorizontalAlignment="Left" Height="50" Margin="469,331,0,0" VerticalAlignment="Top" Width="150" Click="btnEndTurn_Click"/>
         <Button x:Name="btnUndo" Content="Undo Move" HorizontalAlignment="Left" Height="30" Margin="469,259,0,0" VerticalAlignment="Top" Width="150" Click="btnUndo_Click"/>
 
