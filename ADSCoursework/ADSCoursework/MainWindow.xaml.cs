@@ -20,6 +20,9 @@ namespace ADSCoursework
         /*****          Set Up Lists            *****/
         List<Piece> whitePieces = new List<Piece>();
         List<Piece> blackPieces = new List<Piece>();
+
+        List<Piece> takenWhitePieces = new List<Piece>();
+        List<Piece> takenBlackPieces = new List<Piece>();
         /********************************************/
 
         /*****    Set Up Players    *****/
@@ -32,8 +35,9 @@ namespace ADSCoursework
         Button[] buttonList = new Button[64];
         Player currentPlayer = new Player("White");
         Piece currentPiece = new Piece();
-        int turnOrder = 0;
         Facade facade;
+        int turnOrder = 0;
+        bool pieceTaken = false;
         /*****************************/
 
         public MainWindow()
@@ -69,12 +73,12 @@ namespace ADSCoursework
                     currentPiece.SetColour("Black");
                 }
 
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken);
             }
 
             if (turnOrder == 1 && Validations.IsSpaceEmpty(currentCell) == true)
             {
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken);
             }
         }
         

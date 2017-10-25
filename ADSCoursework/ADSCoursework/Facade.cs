@@ -127,7 +127,7 @@ namespace ADSCoursework
     class TurnOrder
     {
         // This class/method contains all of the logic for the basic movement of a piece.
-        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer)
+        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, ref bool pieceTaken)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
             // and 1, which involves the player moving the piece to a new location.
@@ -176,7 +176,7 @@ namespace ADSCoursework
 
                             // Check if the move is valid, from within the Validations class.
                             if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
-                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
+                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition()), pieceTaken) == true)
                             {
                                 // Set the previous cell (where the piece used to be) back to gray.
                                 buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
@@ -251,17 +251,6 @@ namespace ADSCoursework
         }
     }
 
-    class TakePieces
-    {
-        public void TakePiece(MainWindow main, Button currentCell, ref Piece currentPiece, Button[] buttonList, ref int turnOrder)
-        {
-            if (turnOrder == 1)
-            {
-                
-            }
-        }
-    }
-
     public class Facade
     {
         ButtonCleaning cleaner;
@@ -286,9 +275,9 @@ namespace ADSCoursework
             cleaner.CleanEdges(main, blackPieces);
         }
 
-        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer)
+        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, ref bool pieceTaken)
         {
-            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer);
+            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken);
         }
 
         public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
