@@ -31,7 +31,7 @@ namespace ADSCoursework
                 // If the index of the piece is odd, more than 8 and less than 16, set as a black piece.
                 // (This will set the second row of pieces from the bottom on a checkers board).
                 else if (i % 2 == 1 && i > 8 && i < 16)
-                {                                               
+                {
                     buttonList[i].Background = Brushes.Black;
                 } else if (i % 2 == 0 && i > 15 && i < 23)
                 {
@@ -67,11 +67,11 @@ namespace ADSCoursework
                 // Check the entire left column of the board (indexes are divisible by 8).
                 if (Convert.ToInt32(pieces[i].GetPosition()) % 8 == 0 ||
                     // Check if the index divided by eight returns a remainder of 7 (For the right column).
-                    Convert.ToInt32(pieces[i].GetPosition()) % 8 == 7||
+                    Convert.ToInt32(pieces[i].GetPosition()) % 8 == 7 ||
                     // For the top row,
                     Convert.ToInt32(pieces[i].GetPosition()) > 55 ||
                     // and then the bottom row.
-                    Convert.ToInt32(pieces[i].GetPosition()) < 8)           
+                    Convert.ToInt32(pieces[i].GetPosition()) < 8)
                 {
                     // If any of these if statements are true, then the piece must be on a side or edge of the board.
                     pieces[i].SetEdge(true);
@@ -105,7 +105,7 @@ namespace ADSCoursework
                 {
                     // As the 'a' accumulator reaches 8, the indexes are no longer 
                     // 2 spaces apart, unless they are at the 9th index instead.
-                    a = 9;  
+                    a = 9;
                 } else if (a == 17)
                 {
                     a = 16;
@@ -173,7 +173,7 @@ namespace ADSCoursework
                         {
                             // If it passes, set the new position.
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
-                            
+
                             // Check if the move is valid, from within the Validations class.
                             if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
                                 Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == true)
@@ -247,6 +247,17 @@ namespace ADSCoursework
                 {
                     buttonList[i].Background = Brushes.White;
                 }
+            }
+        }
+    }
+
+    class TakePieces
+    {
+        public void TakePiece(MainWindow main, Button currentCell, ref Piece currentPiece, Button[] buttonList, ref int turnOrder)
+        {
+            if (turnOrder == 1)
+            {
+                
             }
         }
     }

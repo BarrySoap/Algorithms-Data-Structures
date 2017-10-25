@@ -45,7 +45,16 @@ namespace ADSCoursework
                 if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9 && buttonList[newPosition].Background == Brushes.Gray)
                 {
                     return true;
-                } else
+                }
+                else if (oldPosition - newPosition == 14 || oldPosition - newPosition == 18)
+                {
+                    if (buttonList[newPosition + 9].Background == Brushes.Black || buttonList[newPosition + 7].Background == Brushes.Black)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                else
                 {
                     return false;
                 }
@@ -54,7 +63,16 @@ namespace ADSCoursework
                 if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && buttonList[newPosition].Background == Brushes.Gray)
                 {
                     return true;
-                } else
+                }
+                else if (oldPosition - newPosition == -14 || oldPosition - newPosition == -18)
+                {
+                    if (buttonList[newPosition - 9].Background == Brushes.White || buttonList[newPosition - 7].Background == Brushes.White)
+                    {
+                        return true;
+                    }
+                    return false;
+                }
+                else
                 {
                     return false;
                 }
@@ -72,7 +90,7 @@ namespace ADSCoursework
             {
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background = Brushes.Cyan;
             }
-            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black
+            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black      // CAUSES AN ISSUE ON OTHER SIDE OF BOARD
                 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 18].Background == Brushes.Gray)
             {
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
