@@ -19,6 +19,7 @@ namespace ADSCoursework
         private string colour;
         private bool kingship = false;
         private bool isPieceOnEdge = false;
+        private bool isTaken = false;
         /*******************************/
 
         /*****            Get Methods            *****/
@@ -27,6 +28,7 @@ namespace ADSCoursework
         public string GetColour() { return colour; }
         public bool IsPieceKing() { return kingship; }
         public bool GetEdge() { return isPieceOnEdge; }
+        public bool Taken() { return isTaken; }
         /*********************************************/
 
         /*****                 Set Methods                   *****/
@@ -35,6 +37,7 @@ namespace ADSCoursework
         public void SetColour(string col) { colour = col; }
         public void SetPieceAsKing(bool type) { kingship = type; }
         public void SetEdge(bool edge) { isPieceOnEdge = edge; }
+        public void SetTaken(bool take) { isTaken = take; }
         /*********************************************************/
     }
 }

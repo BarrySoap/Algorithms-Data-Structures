@@ -38,7 +38,8 @@ namespace ADSCoursework
             }
         }
 
-        public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, bool pieceTaken)
+        public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, bool pieceTaken,
+            List<Piece> whitePieces, List<Piece> blackPieces)
         {
             if (currentPiece.GetColour() == "White")
             {
@@ -51,6 +52,14 @@ namespace ADSCoursework
                     if (buttonList[newPosition + 9].Background == Brushes.Black || buttonList[newPosition + 7].Background == Brushes.Black)
                     {
                         pieceTaken = true;
+                        for (int i = 0; i < blackPieces.Count; i++)
+                        {
+                            if (blackPieces[i].GetNewPosition() == buttonList[newPosition + 9].Name.Substring(7) ||
+                                blackPieces[i].GetNewPosition() == buttonList[newPosition + 7].Name.Substring(7))
+                            {
+                                blackPieces[i].SetTaken(true);
+                            }
+                        }
                         return true;
                     }
                     return false;
@@ -70,6 +79,14 @@ namespace ADSCoursework
                     if (buttonList[newPosition - 9].Background == Brushes.White || buttonList[newPosition - 7].Background == Brushes.White)
                     {
                         pieceTaken = true;
+                        for (int i = 0; i < whitePieces.Count; i++)
+                        {
+                            if (whitePieces[i].GetPosition() == buttonList[newPosition - 9].Name.Substring(7) ||
+                                whitePieces[i].GetPosition() == buttonList[newPosition - 7].Name.Substring(7))
+                            {
+                                whitePieces[i].SetTaken(true);
+                            }
+                        }
                         return true;
                     }
                     return false;

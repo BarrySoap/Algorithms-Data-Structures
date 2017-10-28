@@ -73,12 +73,12 @@ namespace ADSCoursework
                     currentPiece.SetColour("Black");
                 }
 
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken);
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             }
 
             if (turnOrder == 1 && Validations.IsSpaceEmpty(currentCell) == true)
             {
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken);
+                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             }
         }
         
