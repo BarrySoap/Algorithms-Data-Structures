@@ -38,7 +38,7 @@ namespace ADSCoursework
             }
         }
 
-        public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, bool pieceTaken,
+        public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,
             List<Piece> whitePieces, List<Piece> blackPieces)
         {
             if (currentPiece.GetColour() == "White")

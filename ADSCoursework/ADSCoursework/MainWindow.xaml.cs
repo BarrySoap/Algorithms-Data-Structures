@@ -80,6 +80,8 @@ namespace ADSCoursework
             {
                 facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             }
+
+            facade.takeFacade(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)

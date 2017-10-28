@@ -179,17 +179,21 @@ namespace ADSCoursework
                                 {
                                     whitePieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }
+                            }
+                            // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
+                            for (int i = 0; i < blackPieces.Count; i++)
+                            {
                                 if (blackPieces[i].GetPosition() == currentPiece.GetPosition())
                                 {
                                     blackPieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }
                             }
-                            
+
                             currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
 
                             // Check if the move is valid, from within the Validations class.
                             if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
-                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition()), pieceTaken,
+                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken,
                                 whitePieces, blackPieces) == true)
                             {
 
@@ -268,11 +272,28 @@ namespace ADSCoursework
 
     class TakePiece
     {
-        public void TakePieces(bool pieceTaken, Piece currentPiece, Button currentCell, Player currentPlayer)
+        public void TakePieces(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
+            Button[] buttonList)
         {
             if (pieceTaken == true)
             {
-
+                for (int i = 0; i < whitePieces.Count; i++)
+                {
+                    if (whitePieces[i].Taken() == true)
+                    {
+                        takenWhitePieces.Add(whitePieces[i]);
+                        whitePieces.Remove(whitePieces[i]);
+                    }
+                }
+                for (int j = 0; j < blackPieces.Count; j++)
+                {
+                    if (blackPieces[j].Taken() == true)
+                    {
+                        takenBlackPieces.Add(blackPieces[j]);
+                        blackPieces.Remove(blackPieces[j]);
+                    }
+                }
+                pieceTaken = false;
             }
         }
     }
@@ -314,9 +335,10 @@ namespace ADSCoursework
             unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList);
         }
 
-        public void takeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, Player currentPlayer)
+        public void takeFacade(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
+            Button[] buttonList)
         {
-            tp.TakePieces(pieceTaken, currentPiece, currentCell, currentPlayer);
+            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
         }
     }
 }
