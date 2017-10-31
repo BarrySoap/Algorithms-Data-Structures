@@ -19,6 +19,7 @@ namespace ADSCoursework
                 // Each button begins with the name: "btnCell", followed by a number for it's index in the list.
                 buttonList[i] = (Button)main.FindName("btnCell" + i);
                 buttonList[i].Background = Brushes.Gray;
+                buttonList[i].Content = buttonList[i].Name.Substring(7);
             }
 
             for (int i = 0; i < 64; i++)
@@ -75,6 +76,9 @@ namespace ADSCoursework
                 {
                     // If any of these if statements are true, then the piece must be on a side or edge of the board.
                     pieces[i].SetEdge(true);
+                } else
+                {
+                    pieces[i].SetEdge(false);
                 }
             }
         }
@@ -96,6 +100,8 @@ namespace ADSCoursework
             {
                 blackPieces[i].SetPosition(a.ToString());
                 whitePieces[i].SetPosition(b.ToString());
+                blackPieces[i].SetNewPosition(a.ToString());
+                whitePieces[i].SetNewPosition(b.ToString());
 
                 // Each piece is always separated by 2 spaces.
                 a += 2;
@@ -135,12 +141,13 @@ namespace ADSCoursework
             switch (turnOrder)
             {
                 case 0:
+                    // If a given cell has the name 'btnCell48', then this will set
+                    // the position to '48'.
+                    currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+
                     // If the space isn't empty:
                     if (Validations.IsSpaceEmpty(currentCell) == false)
                     {
-                        // If a given cell has the name 'btnCell48', then this will set
-                        // the position to '48'.
-                        currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
                         // This validation will highlight cells as cyan based on
                         // whether or not they can be taken.
                         Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()));
@@ -153,6 +160,8 @@ namespace ADSCoursework
                     }
                     break;
                 case 1:
+                    currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
+
                     // Check if the piece isn't trying to be moved to the same space.
                     if (currentCell.Name.ToString().Substring(7) != currentPiece.GetPosition())
                     {
@@ -175,7 +184,8 @@ namespace ADSCoursework
                             // If it passes, set the new position.
                             for (int i = 0; i < whitePieces.Count; i++)
                             {
-                                if (whitePieces[i].GetPosition() == currentPiece.GetPosition())
+                                if (currentPlayer.GetColour() == "White" && whitePieces[i].GetPosition() == currentPiece.GetPosition() ||
+                                    whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                                 {
                                     whitePieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }
@@ -183,13 +193,12 @@ namespace ADSCoursework
                             // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
                             for (int i = 0; i < blackPieces.Count; i++)
                             {
-                                if (blackPieces[i].GetPosition() == currentPiece.GetPosition())
+                                if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetPosition() == currentPiece.GetPosition() ||
+                                    blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                                 {
                                     blackPieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }
                             }
-
-                            currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
 
                             // Check if the move is valid, from within the Validations class.
                             if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
@@ -277,22 +286,30 @@ namespace ADSCoursework
         {
             if (pieceTaken == true)
             {
+                int tempPos = 0;
+
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
                     if (whitePieces[i].Taken() == true)
                     {
+                        tempPos = Convert.ToInt32(whitePieces[i].GetNewPosition());
                         takenWhitePieces.Add(whitePieces[i]);
+                        buttonList[tempPos].Background = Brushes.Gray;
                         whitePieces.Remove(whitePieces[i]);
                     }
                 }
+
                 for (int j = 0; j < blackPieces.Count; j++)
                 {
                     if (blackPieces[j].Taken() == true)
                     {
+                        tempPos = Convert.ToInt32(blackPieces[j].GetNewPosition());
                         takenBlackPieces.Add(blackPieces[j]);
+                        buttonList[tempPos].Background = Brushes.Gray;
                         blackPieces.Remove(blackPieces[j]);
                     }
                 }
+
                 pieceTaken = false;
             }
         }
@@ -328,6 +345,8 @@ namespace ADSCoursework
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            cleaner.CleanEdges(main, whitePieces);
+            cleaner.CleanEdges(main, blackPieces);
         }
 
         public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)

@@ -41,6 +41,9 @@ namespace ADSCoursework
         public static bool IsMoveValid(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,
             List<Piece> whitePieces, List<Piece> blackPieces)
         {
+            int temp = 0;
+            int temp2 = 0;
+
             if (currentPiece.GetColour() == "White")
             {
                 if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9 && buttonList[newPosition].Background == Brushes.Gray)
@@ -52,10 +55,14 @@ namespace ADSCoursework
                     if (buttonList[newPosition + 9].Background == Brushes.Black || buttonList[newPosition + 7].Background == Brushes.Black)
                     {
                         pieceTaken = true;
+                        temp = Convert.ToInt32(currentPiece.GetPosition());
+                        temp2 = temp + Convert.ToInt32(currentPiece.GetNewPosition());
+                        temp2 /= 2;
+
                         for (int i = 0; i < blackPieces.Count; i++)
                         {
-                            if (blackPieces[i].GetNewPosition() == buttonList[newPosition + 9].Name.Substring(7) ||
-                                blackPieces[i].GetNewPosition() == buttonList[newPosition + 7].Name.Substring(7))
+                            if (Convert.ToInt32(blackPieces[i].GetNewPosition()) == temp2 || 
+                                Convert.ToInt32(blackPieces[i].GetPosition()) == temp2)
                             {
                                 blackPieces[i].SetTaken(true);
                             }
@@ -79,10 +86,14 @@ namespace ADSCoursework
                     if (buttonList[newPosition - 9].Background == Brushes.White || buttonList[newPosition - 7].Background == Brushes.White)
                     {
                         pieceTaken = true;
+                        temp = Convert.ToInt32(currentPiece.GetPosition());
+                        temp2 = temp + Convert.ToInt32(currentPiece.GetNewPosition());
+                        temp2 /= 2;
+
                         for (int i = 0; i < whitePieces.Count; i++)
                         {
-                            if (whitePieces[i].GetPosition() == buttonList[newPosition - 9].Name.Substring(7) ||
-                                whitePieces[i].GetPosition() == buttonList[newPosition - 7].Name.Substring(7))
+                            if (Convert.ToInt32(whitePieces[i].GetNewPosition()) == temp2 ||
+                                Convert.ToInt32(whitePieces[i].GetPosition()) == temp2)
                             {
                                 whitePieces[i].SetTaken(true);
                             }
