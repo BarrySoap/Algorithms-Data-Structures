@@ -82,6 +82,8 @@ namespace ADSCoursework
             }
 
             facade.takeFacade(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+            Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
+                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)

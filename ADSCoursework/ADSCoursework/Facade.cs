@@ -144,6 +144,7 @@ namespace ADSCoursework
                     // If a given cell has the name 'btnCell48', then this will set
                     // the position to '48'.
                     currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
+                    currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
 
                     // If the space isn't empty:
                     if (Validations.IsSpaceEmpty(currentCell) == false)

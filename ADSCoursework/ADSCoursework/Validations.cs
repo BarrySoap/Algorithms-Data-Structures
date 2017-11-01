@@ -137,5 +137,36 @@ namespace ADSCoursework
                 buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background = Brushes.Cyan;
             }
         }
+
+        public static void IsPieceKing(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,
+            List<Piece> whitePieces, List<Piece> blackPieces)
+        {
+            if (Validations.IsMoveValid(cell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()), 
+                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true)
+            {
+                if (currentPiece.GetColour() == "Black" && Convert.ToInt32(currentPiece.GetNewPosition()) > 55
+                                                    && Convert.ToInt32(currentPiece.GetNewPosition()) < 64)
+                {
+                    currentPiece.SetPieceAsKing(true);
+                    cell.Content = "K";
+                    cell.Foreground = Brushes.White;
+                }
+                if (currentPiece.GetColour() == "White" && Convert.ToInt32(currentPiece.GetNewPosition()) > -1
+                                                        && Convert.ToInt32(currentPiece.GetNewPosition()) < 8)
+                {
+                    currentPiece.SetPieceAsKing(true);
+                    cell.Content = "K";
+                    cell.Foreground = Brushes.Black;
+                }
+            }
+        }
+
+        public void HasGameEnded(List<Piece> whitePieces, List<Piece> blackPieces)
+        {
+            if (whitePieces.Count == 0 || blackPieces.Count == 0)
+            {
+                MessageBox.Show("Game has ended!");
+            }
+        }
     }
 }
