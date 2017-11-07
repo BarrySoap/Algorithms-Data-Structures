@@ -59,5 +59,73 @@ namespace ADSCoursework
             }
             return false;
         }
+
+        public static bool KingFactionCheck(Button[] buttonList, Piece currentPiece, int oldPosition, int newPosition)
+        {
+            if (currentPiece.GetColour() == "White")
+            {
+                if (oldPosition - newPosition == 14)
+                {
+                    if (buttonList[newPosition + 7].Background == Brushes.Black)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == 18)
+                {
+                    if (buttonList[newPosition + 9].Background == Brushes.Black)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == -14)
+                {
+                    if (buttonList[newPosition - 7].Background == Brushes.Black)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == -18)
+                {
+                    if (buttonList[newPosition - 9].Background == Brushes.Black)
+                    {
+                        return true;
+                    }
+                }
+            }
+            
+            if (currentPiece.GetColour() == "Black")
+            {
+                if (oldPosition - newPosition == 14)
+                {
+                    if (buttonList[newPosition + 7].Background == Brushes.White)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == 18)
+                {
+                    if (buttonList[newPosition + 9].Background == Brushes.White)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == -14)
+                {
+                    if (buttonList[newPosition - 7].Background == Brushes.White)
+                    {
+                        return true;
+                    }
+                }
+                if (oldPosition - newPosition == -18)
+                {
+                    if (buttonList[newPosition - 9].Background == Brushes.White)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
     }
 }

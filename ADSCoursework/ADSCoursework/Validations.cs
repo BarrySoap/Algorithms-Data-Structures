@@ -28,10 +28,12 @@ namespace ADSCoursework
             if (cell.Background == Brushes.White && player.GetColour() == "White")
             {
                 return true;
-            } else if (cell.Background == Brushes.Black && player.GetColour() == "Black")
+            }
+            else if (cell.Background == Brushes.Black && player.GetColour() == "Black")
             {
                 return true;
-            } else
+            }
+            else
             {
                 MessageBox.Show("Piece is not yours!");
                 return false;
@@ -53,11 +55,16 @@ namespace ADSCoursework
                     {
                         return true;
                     }
-                    else if (oldPosition - newPosition == 14 || oldPosition - newPosition == 18 ||
-                             oldPosition - newPosition == -14 || oldPosition - newPosition == -18)
+                    else if (Operations.KingFactionCheck(buttonList, currentPiece, oldPosition, newPosition))
                     {
-                        if (buttonList[newPosition + 9].Background == Brushes.Black || buttonList[newPosition + 7].Background == Brushes.Black ||
-                            buttonList[newPosition - 9].Background == Brushes.Black || buttonList[newPosition - 7].Background == Brushes.Black)
+                        if (Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == true ||
+                            Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 7) == true ||
+                            Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) + 9) == true ||
+                            Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) + 7) == true)
+                        {
+                            return false;
+                        }
+                        else
                         {
                             pieceTaken = true;
                             temp = Convert.ToInt32(currentPiece.GetPosition());
@@ -74,7 +81,6 @@ namespace ADSCoursework
                             }
                             return true;
                         }
-                        return false;
                     }
                     else
                     {
@@ -88,12 +94,18 @@ namespace ADSCoursework
                     {
                         return true;
                     }
-                    else if (oldPosition - newPosition == 14 || oldPosition - newPosition == 18 ||
-                             oldPosition - newPosition == -14 || oldPosition - newPosition == -18)
+                    else if (Operations.KingFactionCheck(buttonList, currentPiece, oldPosition, newPosition))
                     {
-                        if (buttonList[newPosition + 9].Background == Brushes.White || buttonList[newPosition + 7].Background == Brushes.White ||
-                            buttonList[newPosition - 9].Background == Brushes.White || buttonList[newPosition - 7].Background == Brushes.White)
+                        if (Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == true ||
+                            Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) - 7) == true ||
+                            Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 9) == true ||
+                            Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 7) == true)
                         {
+                            return false;
+                        }
+                        else
+                        {
+
                             pieceTaken = true;
                             temp = Convert.ToInt32(currentPiece.GetPosition());
                             temp2 = temp + Convert.ToInt32(currentPiece.GetNewPosition());
@@ -109,18 +121,17 @@ namespace ADSCoursework
                             }
                             return true;
                         }
-                        return false;
                     }
                     else
                     {
                         return false;
                     }
-                }
-                else
+                } else
                 {
                     return false;
                 }
-            } else
+            }
+            else
             {
                 if (currentPiece.GetColour() == "White")
                 {
@@ -160,7 +171,7 @@ namespace ADSCoursework
                 }
                 else if (currentPiece.GetColour() == "Black")
                 {
-                    if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && buttonList[newPosition].Background == Brushes.Gray)
+                    if (oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && Validations.IsSpaceEmpty(buttonList[newPosition]) == true)
                     {
                         return true;
                     }
