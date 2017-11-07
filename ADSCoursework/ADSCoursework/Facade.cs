@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace ADSCoursework
 {
-    class ButtonCleaning
+    class BoardCleaning
     {
         public void CleanButtons(MainWindow main, Button[] buttonList)
         {
@@ -60,19 +60,19 @@ namespace ADSCoursework
 
         // This method is used a check to see if any pieces are on the sides or edges of
         // the board.
-        public void CleanEdges(MainWindow main, List<Piece> pieces)
+        public void CleanEdges(List<Piece> pieces)
         {
             // For each piece in a given list (black or white pieces)
             for (int i = 0; i < pieces.Count; i++)
             {
                 // Check the entire left column of the board (indexes are divisible by 8).
-                if (Convert.ToInt32(pieces[i].GetPosition()) % 8 == 0 ||
+                if (Convert.ToInt32(pieces[i].GetNewPosition()) % 8 == 0 ||
                     // Check if the index divided by eight returns a remainder of 7 (For the right column).
-                    Convert.ToInt32(pieces[i].GetPosition()) % 8 == 7 ||
+                    Convert.ToInt32(pieces[i].GetNewPosition()) % 8 == 7 ||
                     // For the top row,
-                    Convert.ToInt32(pieces[i].GetPosition()) > 55 ||
+                    Convert.ToInt32(pieces[i].GetNewPosition()) > 55 ||
                     // and then the bottom row.
-                    Convert.ToInt32(pieces[i].GetPosition()) < 8)
+                    Convert.ToInt32(pieces[i].GetNewPosition()) < 8)
                 {
                     // If any of these if statements are true, then the piece must be on a side or edge of the board.
                     pieces[i].SetEdge(true);
@@ -151,7 +151,7 @@ namespace ADSCoursework
                     {
                         // This validation will highlight cells as cyan based on
                         // whether or not they can be taken.
-                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList);
+                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces);
                         // Highlight the currently selected cell as gold.
                         currentCell.Background = Brushes.Gold;
                         turnOrder++;
@@ -318,7 +318,7 @@ namespace ADSCoursework
 
     public class Facade
     {
-        ButtonCleaning cleaner;
+        BoardCleaning cleaner;
         SetInitialPieces setPieces;
         TurnOrder turn;
         UndoRedoMoves unredo;
@@ -327,7 +327,7 @@ namespace ADSCoursework
         // Initialise the subsystems as a Facade constructor.
         public Facade(MainWindow main)
         {
-            cleaner = new ButtonCleaning();
+            cleaner = new BoardCleaning();
             turn = new TurnOrder();
             setPieces = new SetInitialPieces();
             unredo = new UndoRedoMoves();
@@ -338,25 +338,25 @@ namespace ADSCoursework
         {
             cleaner.CleanButtons(main, buttonList);
             setPieces.SetPieces(main, whitePieces, blackPieces);
-            cleaner.CleanEdges(main, whitePieces);
-            cleaner.CleanEdges(main, blackPieces);
+            cleaner.CleanEdges(whitePieces);
+            cleaner.CleanEdges(blackPieces);
         }
 
         public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
-            cleaner.CleanEdges(main, whitePieces);
-            cleaner.CleanEdges(main, blackPieces);
+            cleaner.CleanEdges(whitePieces);
+            cleaner.CleanEdges(blackPieces);
         }
 
-        public void undoFacade(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
+        public void undoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList)
         {
             unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList);
         }
 
-        public void takeFacade(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
-            Button[] buttonList)
+        public void takeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
+            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList)
         {
             tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
         }

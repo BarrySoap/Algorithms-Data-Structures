@@ -81,7 +81,7 @@ namespace ADSCoursework
                 facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             }
 
-            facade.takeFacade(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+            facade.takeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
             Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
                 Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
         }
@@ -111,7 +111,7 @@ namespace ADSCoursework
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.undoFacade(this, ref turnOrder, currentCell, currentPlayer, buttonList);
+            facade.undoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList);
         }
     }
 }
