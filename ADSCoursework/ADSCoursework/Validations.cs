@@ -226,11 +226,11 @@ namespace ADSCoursework
                     }
                 }
                 if (Convert.ToInt32(currentPiece.GetPosition()) - 9 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black &&
-                    Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == false)
+                    Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == false)
                 {
                     if (Convert.ToInt32(currentPiece.GetPosition()) - 18 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 18].Background == Brushes.Gray)
                     {
-                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
+                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;  // ?
                     }
                 }
             }

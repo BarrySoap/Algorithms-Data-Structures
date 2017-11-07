@@ -180,7 +180,7 @@ namespace ADSCoursework
                         }
 
                         // Check if the piece is being moved to an empty cell.
-                        if (Validations.IsSpaceEmpty(currentCell) == true)
+                        if (Validations.IsSpaceEmpty(currentCell) == true && Operations.ComparePieces(currentPiece, whitePieces, blackPieces).GetEdge() == false)
                         {
                             // If it passes, set the new position.
                             for (int i = 0; i < whitePieces.Count; i++)
@@ -228,7 +228,7 @@ namespace ADSCoursework
                             }
                         } else
                         {
-                            MessageBox.Show("Please move the piece to an empty space!");
+                            MessageBox.Show("Please make a valid move!");
                             break;
                         }
                     } else

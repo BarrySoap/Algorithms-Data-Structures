@@ -127,5 +127,24 @@ namespace ADSCoursework
             }
             return false;
         }
+
+        public static Piece ComparePieces(Piece currentPiece, List<Piece> whitePieces, List<Piece> blackPieces)
+        {
+            for (int i = 0; i < whitePieces.Count; i++)
+            {
+                if (currentPiece.GetPosition() == whitePieces[i].GetNewPosition())
+                {
+                    return whitePieces[i];
+                }
+            }
+            for (int i = 0; i < blackPieces.Count; i++)
+            {
+                if (currentPiece.GetPosition() == blackPieces[i].GetNewPosition())
+                {
+                    return blackPieces[i];
+                }
+            }
+            return currentPiece;
+        }
     }
 }
