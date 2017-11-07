@@ -113,28 +113,40 @@ namespace ADSCoursework
             }
         }
 
-        public static void CanPieceBeTaken(Button cell, ref Piece currentPiece, Button[] buttonList, int oldPosition)
+        public static void CanPieceBeTaken(Button cell, ref Piece currentPiece, Button[] buttonList)
         {
-            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background == Brushes.Black
-                && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 14].Background == Brushes.Gray)
+            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background == Brushes.Black 
+                && Convert.ToInt32(currentPiece.GetPosition()) - 14 > 0)
             {
-                buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background = Brushes.Cyan;
+                if (buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 14].Background == Brushes.Gray)
+                {
+                    buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background = Brushes.Cyan;
+                }
             }
-            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black      // CAUSES AN ISSUE ON OTHER SIDE OF BOARD
-                && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 18].Background == Brushes.Gray)
+            if (currentPiece.GetColour() == "White" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black
+                 && Convert.ToInt32(currentPiece.GetPosition()) - 18 > 0)
             {
-                buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
+                if (buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 18].Background == Brushes.Gray)
+                {
+                    buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;
+                }
             }
 
             if (currentPiece.GetColour() == "Black" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background == Brushes.White
-                && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 14].Background == Brushes.Gray)
+                 && Convert.ToInt32(currentPiece.GetPosition()) + 14 > 63)
             {
-                buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background = Brushes.Cyan;
+                if (buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 14].Background == Brushes.Gray)
+                {
+                    buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background = Brushes.Cyan;
+                }
             }
             if (currentPiece.GetColour() == "Black" && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background == Brushes.White
-                && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 18].Background == Brushes.Gray)
+                 && Convert.ToInt32(currentPiece.GetPosition()) + 18 > 63)
             {
-                buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background = Brushes.Cyan;
+                if (buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 18].Background == Brushes.Gray)
+                {
+                    buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background = Brushes.Cyan;
+                }
             }
         }
 
@@ -145,7 +157,7 @@ namespace ADSCoursework
                 Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true)
             {
                 if (currentPiece.GetColour() == "Black" && Convert.ToInt32(currentPiece.GetNewPosition()) > 55
-                                                    && Convert.ToInt32(currentPiece.GetNewPosition()) < 64)
+                                                        && Convert.ToInt32(currentPiece.GetNewPosition()) < 64)
                 {
                     currentPiece.SetPieceAsKing(true);
                     cell.Content = "K";

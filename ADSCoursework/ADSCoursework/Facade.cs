@@ -151,7 +151,7 @@ namespace ADSCoursework
                     {
                         // This validation will highlight cells as cyan based on
                         // whether or not they can be taken.
-                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()));
+                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList);
                         // Highlight the currently selected cell as gold.
                         currentCell.Background = Brushes.Gold;
                         turnOrder++;
