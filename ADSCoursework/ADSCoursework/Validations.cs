@@ -287,7 +287,7 @@ namespace ADSCoursework
             }
         }
 
-        public void HasGameEnded(List<Piece> whitePieces, List<Piece> blackPieces)
+        public static void HasGameEnded(List<Piece> whitePieces, List<Piece> blackPieces)
         {
             if (whitePieces.Count == 0 || blackPieces.Count == 0)
             {

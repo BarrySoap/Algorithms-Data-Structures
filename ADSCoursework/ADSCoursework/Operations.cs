@@ -163,5 +163,33 @@ namespace ADSCoursework
                 return false;
             }
         }
+
+        public static void CheckColouring(List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
+        {
+            for (int i = 0; i < whitePieces.Count; i++)
+            {
+                if (whitePieces[i].GetNewPosition() == buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Name.Substring(7) && whitePieces[i].IsPieceKing() == true)
+                {
+                    buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Content = "K";
+                    buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Foreground = Brushes.Black;
+                }
+            }
+            for (int j = 0; j < blackPieces.Count; j++)
+            {
+                if (blackPieces[j].GetNewPosition() == buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Name.Substring(7) && blackPieces[j].IsPieceKing() == true)
+                {
+                    buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Content = "K";
+                    buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Foreground = Brushes.White;
+                }
+            }
+            for (int k = 0; k < buttonList.Length; k++)
+            {
+                if (buttonList[k].Content == "K" && buttonList[k].Background == Brushes.Gray)
+                {
+                    buttonList[k].Content = buttonList[k].Name.Substring(7);
+                    buttonList[k].Foreground = Brushes.Black;
+                }
+            }
+        }
     }
 }
