@@ -149,11 +149,9 @@ namespace ADSCoursework
 
         public static bool EdgeToEdge(int oldPosition, int newPosition)
         {
-            if (oldPosition % 8 == 0 || oldPosition % 8 == 7 ||
-                oldPosition > 55     || oldPosition < 8)
+            if (oldPosition % 8 == 0 || oldPosition % 8 == 7)
             {
-                if (newPosition % 8 == 0 || newPosition % 8 == 7 ||
-                    newPosition > 55     || newPosition < 8)
+                if (newPosition % 8 == 0 || newPosition % 8 == 7)
                 {
                     return true;
                 } else

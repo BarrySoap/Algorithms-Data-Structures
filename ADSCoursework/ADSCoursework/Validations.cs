@@ -46,7 +46,7 @@ namespace ADSCoursework
             int temp = 0;
             int temp2 = 0;
 
-            if (currentPiece.IsPieceKing() == true)
+            if (Operations.ComparePieces(currentPiece, whitePieces, blackPieces).IsPieceKing() == true)
             {
                 if (currentPiece.GetColour() == "White")
                 {
