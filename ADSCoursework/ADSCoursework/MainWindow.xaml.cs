@@ -54,7 +54,7 @@ namespace ADSCoursework
                 Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
             
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
-            Validations.HasGameEnded(whitePieces, blackPieces);
+            Validations.HasGameEnded(this, whitePieces, blackPieces);
         }
         
         private void btnConsole_Click(object sender, RoutedEventArgs e)

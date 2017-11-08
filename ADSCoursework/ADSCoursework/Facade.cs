@@ -146,7 +146,7 @@ namespace ADSCoursework
                     currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
 
                     // If the space isn't empty:
-                    if (Validations.IsSpaceEmpty(currentCell) == false)
+                    if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
                     {
                         // This validation will highlight cells as cyan based on
                         // whether or not they can be taken.
@@ -154,9 +154,6 @@ namespace ADSCoursework
                         // Highlight the currently selected cell as gold.
                         currentCell.Background = Brushes.Gold;
                         turnOrder++;
-                    } else
-                    {
-                        MessageBox.Show("Please select a piece!");
                     }
                     break;
                 case 1:

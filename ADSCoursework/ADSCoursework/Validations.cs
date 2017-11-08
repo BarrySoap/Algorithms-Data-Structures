@@ -287,11 +287,12 @@ namespace ADSCoursework
             }
         }
 
-        public static void HasGameEnded(List<Piece> whitePieces, List<Piece> blackPieces)
+        public static void HasGameEnded(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             if (whitePieces.Count == 0 || blackPieces.Count == 0)
             {
                 MessageBox.Show("Game has ended!");
+                main.Close();
             }
         }
     }
