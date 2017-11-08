@@ -132,19 +132,38 @@ namespace ADSCoursework
         {
             for (int i = 0; i < whitePieces.Count; i++)
             {
-                if (currentPiece.GetPosition() == whitePieces[i].GetNewPosition())
+                if (currentPiece.GetNewPosition() == whitePieces[i].GetNewPosition())
                 {
                     return whitePieces[i];
                 }
             }
             for (int i = 0; i < blackPieces.Count; i++)
             {
-                if (currentPiece.GetPosition() == blackPieces[i].GetNewPosition())
+                if (currentPiece.GetNewPosition() == blackPieces[i].GetNewPosition())
                 {
                     return blackPieces[i];
                 }
             }
             return currentPiece;
+        }
+
+        public static bool EdgeToEdge(int oldPosition, int newPosition)
+        {
+            if (oldPosition % 8 == 0 || oldPosition % 8 == 7 ||
+                oldPosition > 55     || oldPosition < 8)
+            {
+                if (newPosition % 8 == 0 || newPosition % 8 == 7 ||
+                    newPosition > 55     || newPosition < 8)
+                {
+                    return true;
+                } else
+                {
+                    return false;
+                }
+            } else
+            {
+                return false;
+            }
         }
     }
 }

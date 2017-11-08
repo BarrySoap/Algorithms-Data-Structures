@@ -180,7 +180,7 @@ namespace ADSCoursework
                         }
 
                         // Check if the piece is being moved to an empty cell.
-                        if (Validations.IsSpaceEmpty(currentCell) == true && Operations.ComparePieces(currentPiece, whitePieces, blackPieces).GetEdge() == false)
+                        if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             // If it passes, set the new position.
                             for (int i = 0; i < whitePieces.Count; i++)
@@ -202,9 +202,9 @@ namespace ADSCoursework
                             }
 
                             // Check if the move is valid, from within the Validations class.
-                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList,
-                                Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken,
-                                whitePieces, blackPieces) == true)
+                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()), 
+                                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true && 
+                                Operations.EdgeToEdge(Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == false)
                             {
 
                                 // Set the previous cell (where the piece used to be) back to gray.
