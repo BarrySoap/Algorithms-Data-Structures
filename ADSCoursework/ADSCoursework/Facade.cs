@@ -11,8 +11,11 @@ namespace ADSCoursework
 {
     class BoardCleaning
     {
-        public void CleanButtons(MainWindow main, Button[] buttonList)
+        public void CleanButtons(MainWindow main, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
         {
+            int j = 0;
+            int k = 0;
+
             // For all 64 tiles (or buttons), set the background colour to gray.
             for (int i = 0; i < 64; i++)
             {
@@ -27,32 +30,52 @@ namespace ADSCoursework
                 // Set Black Pieces in their respective starting positions //
                 if (i % 2 == 0 && i < 8)
                 {
+                    blackPieces[j].SetPosition(i.ToString());
+                    blackPieces[j].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.Black;
+                    j++;
                 }
                 // If the index of the piece is odd, more than 8 and less than 16, set as a black piece.
                 // (This will set the second row of pieces from the bottom on a checkers board).
                 else if (i % 2 == 1 && i > 8 && i < 16)
                 {
+                    blackPieces[j].SetPosition(i.ToString());
+                    blackPieces[j].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.Black;
+                    j++;
+                // And finally, the top row of black pieces.
                 } else if (i % 2 == 0 && i > 15 && i < 23)
                 {
+                    blackPieces[j].SetPosition(i.ToString());
+                    blackPieces[j].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.Black;
+                    j++;
                 }
                 /***********************************************************/
 
                 // Set White Pieces in their respective starting positions //
                 if (i % 2 == 1 && i > 40 && i < 48)
                 {
+                    whitePieces[k].SetPosition(i.ToString());
+                    whitePieces[k].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.White;
+                    k++;
                 }
                 // If the index of the piece is even, more than 47 and less than 56, set as a white piece.
                 // (This will set the second row of pieces from the top on a checkers board).
                 else if (i % 2 == 0 && i > 47 && i < 56)
                 {
+                    whitePieces[k].SetPosition(i.ToString());
+                    whitePieces[k].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.White;
+                    k++;
+                // And finally, the top row.
                 } else if (i % 2 == 1 && i > 55 && i < 64)
                 {
+                    whitePieces[k].SetPosition(i.ToString());
+                    whitePieces[k].SetNewPosition(i.ToString());
                     buttonList[i].Background = Brushes.White;
+                    k++;
                 }
                 /***********************************************************/
             }
@@ -79,52 +102,6 @@ namespace ADSCoursework
                 } else
                 {
                     pieces[i].SetEdge(false);
-                }
-            }
-        }
-    }
-
-    class SetInitialPieces
-    {
-        // This class/method is used to mutate the position variables of the piece classes, so that each piece
-        // knows it's position on the starting board from inside the list.
-        public void SetPieces(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces)
-        {
-            // The bottom left tile of the board has index 0, so start there as it's a black piece. 
-            int a = 0;
-            // The 41st index holds the first white piece of the board.
-            int b = 41;
-
-            // For the amount of pieces on each side:
-            for (int i = 0; i < 12; i++)
-            {
-                blackPieces[i].SetPosition(a.ToString());
-                whitePieces[i].SetPosition(b.ToString());
-                blackPieces[i].SetNewPosition(a.ToString());
-                whitePieces[i].SetNewPosition(b.ToString());
-
-                // Each piece is always separated by 2 spaces.
-                a += 2;
-                b += 2;
-
-                if (a == 8)
-                {
-                    // As the 'a' accumulator reaches 8, the indexes are no longer 
-                    // 2 spaces apart, unless they are at the 9th index instead.
-                    a = 9;
-                } else if (a == 17)
-                {
-                    a = 16;
-                }
-
-                if (b == 49)
-                {
-                    // Same scenario: As the index reaches 49, the spaces are no longer 
-                    // 2 apart, so the accumulator has to be put back on track.
-                    b = 48;
-                } else if (b == 56)
-                {
-                    b = 57;
                 }
             }
         }
@@ -319,7 +296,6 @@ namespace ADSCoursework
     public class Facade
     {
         BoardCleaning cleaner;
-        SetInitialPieces setPieces;
         TurnOrder turn;
         UndoRedoMoves unredo;
         TakePiece tp;
@@ -329,15 +305,13 @@ namespace ADSCoursework
         {
             cleaner = new BoardCleaning();
             turn = new TurnOrder();
-            setPieces = new SetInitialPieces();
             unredo = new UndoRedoMoves();
             tp = new TakePiece();
         }
 
         public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
         {
-            cleaner.CleanButtons(main, buttonList);
-            setPieces.SetPieces(main, whitePieces, blackPieces);
+            cleaner.CleanButtons(main, buttonList, whitePieces, blackPieces);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }
