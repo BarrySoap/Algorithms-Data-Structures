@@ -47,8 +47,8 @@ namespace ADSCoursework
         {
             currentCell = (Button)sender;
 
-            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
-            facade.takeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
 
             Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
                 Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
@@ -69,20 +69,12 @@ namespace ADSCoursework
 
         private void btnEndTurn_Click(object sender, RoutedEventArgs e)
         {
-            if (currentPlayer.GetColour() == "White")
-            {
-                currentPlayer.SetColour("Black");
-                txtTurnOrder.Text = "Turn: Black";
-            } else
-            {
-                currentPlayer.SetColour("White");
-                txtTurnOrder.Text = "Turn: White";
-            }
+            facade.EndTurnFacade(this, currentPlayer, currentCell);
         }
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.undoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList);
+            facade.UndoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList);
         }
     }
 }

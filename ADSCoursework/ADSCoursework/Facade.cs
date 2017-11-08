@@ -122,7 +122,7 @@ namespace ADSCoursework
     class TurnOrder
     {
         // This class/method contains all of the logic for the basic movement of a piece.
-        public void MovePiece(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
+        public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
@@ -237,6 +237,23 @@ namespace ADSCoursework
                     }
             }
         }
+
+        public void EndTurn(MainWindow main, Player currentPlayer, Button currentCell)
+        {
+            if (currentPlayer.GetColour() == "White" && currentCell.Background != Brushes.Gold)
+            {
+                currentPlayer.SetColour("Black");
+                main.txtTurnOrder.Text = "Turn: Black";
+            }
+            else if (currentPlayer.GetColour() == "Black" && currentCell.Background != Brushes.Gold)
+            {
+                currentPlayer.SetColour("White");
+                main.txtTurnOrder.Text = "Turn: White";
+            } else
+            {
+                MessageBox.Show("You can't end your turn while a piece is selected! Try an undo.");
+            }
+        }
     }
 
     class UndoRedoMoves
@@ -338,20 +355,25 @@ namespace ADSCoursework
             cleaner.CleanEdges(blackPieces);
         }
 
-        public void MoveFacade(MainWindow main, Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
+        public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
-            turn.MovePiece(main, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            turn.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }
 
-        public void undoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList)
+        public void UndoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList)
         {
             unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList);
         }
 
-        public void takeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
+        public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)
+        {
+            turn.EndTurn(main, currentPlayer, currentCell);
+        }
+
+        public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
             List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList)
         {
             tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
