@@ -24,12 +24,7 @@ namespace ADSCoursework
         List<Piece> takenWhitePieces = new List<Piece>();
         List<Piece> takenBlackPieces = new List<Piece>();
         /********************************************/
-
-        /*****    Set Up Players    *****/
-        Player playerOne = new Player("White");
-        Player playerTwo = new Player("Black");
-        /********************************/
-
+        
         /***** General Variables *****/
         Button currentCell = new Button();
         Button[] buttonList = new Button[64];
@@ -43,45 +38,18 @@ namespace ADSCoursework
         public MainWindow()
         {
             InitializeComponent();
-            for (int i = 0; i < 12; i++)
-            {
-                Piece whitePiece = new Piece();
-                Piece blackPiece = new Piece();
-                whitePiece.SetColour("White");
-                blackPiece.SetColour("Black");
-                whitePieces.Add(whitePiece);
-                blackPieces.Add(blackPiece);
-            }
-            txtTurnOrder.Text = "Turn: " + playerOne.GetColour();
             
             facade = new Facade(this);
-            facade.InitialFacade(this, whitePieces, blackPieces, buttonList);
+            facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
             currentCell = (Button)sender;
 
-            if (turnOrder == 0 && Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer) == true)
-            {
-                if (currentCell.Background == Brushes.White && turnOrder == 0)
-                {
-                    currentPiece.SetColour("White");
-                }
-                else if (currentCell.Background == Brushes.Black && turnOrder == 0)
-                {
-                    currentPiece.SetColour("Black");
-                }
-
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
-            }
-
-            if (turnOrder == 1 && Validations.IsSpaceEmpty(currentCell) == true)
-            {
-                facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
-            }
-
+            facade.MoveFacade(this, currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             facade.takeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+
             Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
                 Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
             

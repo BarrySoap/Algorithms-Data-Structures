@@ -11,10 +11,22 @@ namespace ADSCoursework
 {
     class BoardCleaning
     {
-        public void CleanButtons(MainWindow main, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
+        public void CleanButtons(MainWindow main, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, Player currentPlayer)
         {
             int j = 0;
             int k = 0;
+
+            for (int i = 0; i < 12; i++)
+            {
+                Piece whitePiece = new Piece();
+                Piece blackPiece = new Piece();
+                whitePiece.SetColour("White");
+                blackPiece.SetColour("Black");
+                whitePieces.Add(whitePiece);
+                blackPieces.Add(blackPiece);
+            }
+
+            main.txtTurnOrder.Text = "Turn: " + currentPlayer.GetColour();
 
             // For all 64 tiles (or buttons), set the background colour to gray.
             for (int i = 0; i < 64; i++)
@@ -118,6 +130,16 @@ namespace ADSCoursework
             switch (turnOrder)
             {
                 case 0:
+
+                    if (currentCell.Background == Brushes.White)
+                    {
+                        currentPiece.SetColour("White");
+                    }
+                    else if (currentCell.Background == Brushes.Black)
+                    {
+                        currentPiece.SetColour("Black");
+                    }
+
                     // If a given cell has the name 'btnCell48', then this will set
                     // the position to '48'.
                     currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
@@ -309,9 +331,9 @@ namespace ADSCoursework
             tp = new TakePiece();
         }
 
-        public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
+        public void InitialFacade(MainWindow main, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList, Player currentPlayer)
         {
-            cleaner.CleanButtons(main, buttonList, whitePieces, blackPieces);
+            cleaner.CleanButtons(main, buttonList, whitePieces, blackPieces, currentPlayer);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }
