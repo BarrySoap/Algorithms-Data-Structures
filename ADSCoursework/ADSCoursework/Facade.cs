@@ -157,8 +157,7 @@ namespace ADSCoursework
                         // If it passes, set the new position.
                         for (int i = 0; i < whitePieces.Count; i++)
                         {
-                            if (currentPlayer.GetColour() == "White" && whitePieces[i].GetPosition() == currentPiece.GetPosition() ||
-                                whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                            if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
                                 whitePieces[i].SetPosition(currentCell.Name.ToString().Substring(7));
                             }
@@ -166,8 +165,7 @@ namespace ADSCoursework
                         // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
                         for (int i = 0; i < blackPieces.Count; i++)
                         {
-                            if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetPosition() == currentPiece.GetPosition() ||
-                                blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
+                            if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
                                 blackPieces[i].SetPosition(currentCell.Name.ToString().Substring(7));
                             }
@@ -202,8 +200,7 @@ namespace ADSCoursework
                             // If it passes, set the new position.
                             for (int i = 0; i < whitePieces.Count; i++)
                             {
-                                if (currentPlayer.GetColour() == "White" && whitePieces[i].GetPosition() == currentPiece.GetPosition() ||
-                                    whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                                 {
                                     whitePieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }
@@ -211,8 +208,7 @@ namespace ADSCoursework
                             // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
                             for (int i = 0; i < blackPieces.Count; i++)
                             {
-                                if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetPosition() == currentPiece.GetPosition() ||
-                                    blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                                 {
                                     blackPieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
                                 }

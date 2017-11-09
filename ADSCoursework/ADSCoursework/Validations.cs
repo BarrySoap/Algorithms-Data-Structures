@@ -216,11 +216,13 @@ namespace ADSCoursework
 
         public static void CanPieceBeTaken(Button cell, ref Piece currentPiece, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
         {
-            Operations.CheckDiagonal(currentPiece, "White", Convert.ToInt32(currentPiece.GetPosition()), Brushes.Black, blackPieces, buttonList);
-            Operations.CheckDiagonal(currentPiece, "Black", Convert.ToInt32(currentPiece.GetPosition()), Brushes.White, whitePieces, buttonList);
-
-            Operations.CheckKingDiagonal(currentPiece, "White", Convert.ToInt32(currentPiece.GetPosition()), Brushes.Black, whitePieces, blackPieces, buttonList);
-            Operations.CheckKingDiagonal(currentPiece, "Black", Convert.ToInt32(currentPiece.GetPosition()), Brushes.White, whitePieces, blackPieces, buttonList);
+            if (Operations.ComparePieces(currentPiece, whitePieces, blackPieces).IsPieceKing() == false)
+            {
+                Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList);
+            } else
+            {
+                Operations.CheckKingDiagonal(currentPiece, whitePieces, blackPieces, buttonList);
+            }
         }
 
         public static void IsPieceKing(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,

@@ -56,7 +56,7 @@ namespace ADSCoursework
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             Validations.HasGameEnded(this, whitePieces, blackPieces);
         }
-        
+
         private void btnConsole_Click(object sender, RoutedEventArgs e)
         {
             ConsoleAllocator.ShowConsoleWindow();
