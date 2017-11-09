@@ -172,6 +172,8 @@ namespace ADSCoursework
                                 blackPieces[i].SetPosition(currentCell.Name.ToString().Substring(7));
                             }
                         }
+
+                        // Increment the turn order.
                         turnOrder++;
                     }
                     break;

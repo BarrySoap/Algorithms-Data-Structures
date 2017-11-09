@@ -126,7 +126,8 @@ namespace ADSCoursework
                     {
                         return false;
                     }
-                } else
+                }
+                else
                 {
                     return false;
                 }
@@ -215,49 +216,15 @@ namespace ADSCoursework
 
         public static void CanPieceBeTaken(Button cell, ref Piece currentPiece, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
         {
-            if (currentPiece.GetColour() == "White")
-            {
-                if (Convert.ToInt32(currentPiece.GetPosition()) - 7 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background == Brushes.Black &&
-                   Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 7) == false)
-                {
-                    if (Convert.ToInt32(currentPiece.GetPosition()) - 14 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 14].Background == Brushes.Gray)
-                    {
-                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 7].Background = Brushes.Cyan;
-                    }
-                }
-                if (Convert.ToInt32(currentPiece.GetPosition()) - 9 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background == Brushes.Black &&
-                    Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == false)
-                {
-                    if (Convert.ToInt32(currentPiece.GetPosition()) - 18 > 0 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 18].Background == Brushes.Gray)
-                    {
-                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) - 9].Background = Brushes.Cyan;  // ?
-                    }
-                }
-            }
+            Operations.CheckDiagonal(currentPiece, "White", Convert.ToInt32(currentPiece.GetPosition()), Brushes.Black, blackPieces, buttonList);
+            Operations.CheckDiagonal(currentPiece, "Black", Convert.ToInt32(currentPiece.GetPosition()), Brushes.White, whitePieces, buttonList);
 
-            if (currentPiece.GetColour() == "Black")
-            {
-                if (Convert.ToInt32(currentPiece.GetPosition()) + 7 < 63 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background == Brushes.White &&
-                    Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 7) == false)
-                {
-                    if (Convert.ToInt32(currentPiece.GetPosition()) + 14 < 63 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 14].Background == Brushes.Gray)
-                    {
-                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 7].Background = Brushes.Cyan;
-                    }
-                }
-                if (Convert.ToInt32(currentPiece.GetPosition()) + 9 < 63 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background == Brushes.White &&
-                    Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 9) == false)
-                {
-                    if (Convert.ToInt32(currentPiece.GetPosition()) + 18 < 63 && buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 18].Background == Brushes.Gray)
-                    {
-                        buttonList[Convert.ToInt32(currentPiece.GetPosition()) + 9].Background = Brushes.Cyan;
-                    }
-                }
-            }
+            Operations.CheckKingDiagonal(currentPiece, "White", Convert.ToInt32(currentPiece.GetPosition()), Brushes.Black, whitePieces, blackPieces, buttonList);
+            Operations.CheckKingDiagonal(currentPiece, "Black", Convert.ToInt32(currentPiece.GetPosition()), Brushes.White, whitePieces, blackPieces, buttonList);
         }
 
         public static void IsPieceKing(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,
-            List<Piece> whitePieces, List<Piece> blackPieces)
+                List<Piece> whitePieces, List<Piece> blackPieces)
         {
             if (currentPiece.GetColour() == "Black" && Convert.ToInt32(currentPiece.GetNewPosition()) > 55
                                                         && Convert.ToInt32(currentPiece.GetNewPosition()) < 64)
