@@ -42,8 +42,8 @@ namespace ADSCoursework
                 // Set Black Pieces in their respective starting positions //
                 if (i % 2 == 0 && i < 8)
                 {
-                    blackPieces[j].SetPosition(i.ToString());
-                    blackPieces[j].SetNewPosition(i.ToString());
+                    blackPieces[j].SetPosition(i);
+                    blackPieces[j].SetNewPosition(i);
                     buttonList[i].Background = Brushes.Black;
                     j++;
                 }
@@ -51,15 +51,15 @@ namespace ADSCoursework
                 // (This will set the second row of pieces from the bottom on a checkers board).
                 else if (i % 2 == 1 && i > 8 && i < 16)
                 {
-                    blackPieces[j].SetPosition(i.ToString());
-                    blackPieces[j].SetNewPosition(i.ToString());
+                    blackPieces[j].SetPosition(i);
+                    blackPieces[j].SetNewPosition(i);
                     buttonList[i].Background = Brushes.Black;
                     j++;
                 // And finally, the top row of black pieces.
                 } else if (i % 2 == 0 && i > 15 && i < 23)
                 {
-                    blackPieces[j].SetPosition(i.ToString());
-                    blackPieces[j].SetNewPosition(i.ToString());
+                    blackPieces[j].SetPosition(i);
+                    blackPieces[j].SetNewPosition(i);
                     buttonList[i].Background = Brushes.Black;
                     j++;
                 }
@@ -68,8 +68,8 @@ namespace ADSCoursework
                 // Set White Pieces in their respective starting positions //
                 if (i % 2 == 1 && i > 40 && i < 48)
                 {
-                    whitePieces[k].SetPosition(i.ToString());
-                    whitePieces[k].SetNewPosition(i.ToString());
+                    whitePieces[k].SetPosition(i);
+                    whitePieces[k].SetNewPosition(i);
                     buttonList[i].Background = Brushes.White;
                     k++;
                 }
@@ -77,15 +77,15 @@ namespace ADSCoursework
                 // (This will set the second row of pieces from the top on a checkers board).
                 else if (i % 2 == 0 && i > 47 && i < 56)
                 {
-                    whitePieces[k].SetPosition(i.ToString());
-                    whitePieces[k].SetNewPosition(i.ToString());
+                    whitePieces[k].SetPosition(i);
+                    whitePieces[k].SetNewPosition(i);
                     buttonList[i].Background = Brushes.White;
                     k++;
                 // And finally, the top row.
                 } else if (i % 2 == 1 && i > 55 && i < 64)
                 {
-                    whitePieces[k].SetPosition(i.ToString());
-                    whitePieces[k].SetNewPosition(i.ToString());
+                    whitePieces[k].SetPosition(i);
+                    whitePieces[k].SetNewPosition(i);
                     buttonList[i].Background = Brushes.White;
                     k++;
                 }
@@ -142,8 +142,8 @@ namespace ADSCoursework
 
                     // If a given cell has the name 'btnCell48', then this will set
                     // the position to '48'.
-                    currentPiece.SetPosition(currentCell.Name.ToString().Substring(7));
-                    currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
+                    currentPiece.SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                    currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
 
                     // If the space isn't empty:
                     if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
@@ -159,7 +159,7 @@ namespace ADSCoursework
                         {
                             if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
-                                whitePieces[i].SetPosition(currentCell.Name.ToString().Substring(7));
+                                whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                             }
                         }
                         // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
@@ -167,7 +167,7 @@ namespace ADSCoursework
                         {
                             if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
-                                blackPieces[i].SetPosition(currentCell.Name.ToString().Substring(7));
+                                blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                             }
                         }
 
@@ -176,10 +176,10 @@ namespace ADSCoursework
                     }
                     break;
                 case 1:
-                    currentPiece.SetNewPosition(currentCell.Name.ToString().Substring(7));
+                    currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
 
                     // Check if the piece isn't trying to be moved to the same space.
-                    if (currentCell.Name.ToString().Substring(7) != currentPiece.GetPosition())
+                    if (Convert.ToInt32(currentCell.Name.ToString().Substring(7)) != currentPiece.GetPosition())
                     {
                         // After a piece has been moved, a check has to be made
                         // incase there are any pieces still highlighted as cyan.
@@ -207,7 +207,7 @@ namespace ADSCoursework
                                 {
                                     if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                                     {
-                                        whitePieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
+                                        whitePieces[i].SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                                     }
                                 }
                                 // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
@@ -215,10 +215,9 @@ namespace ADSCoursework
                                 {
                                     if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                                     {
-                                        blackPieces[i].SetNewPosition(currentCell.Name.ToString().Substring(7));
+                                        blackPieces[i].SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                                     }
                                 }
-
                                 // Set the previous cell (where the piece used to be) back to gray.
                                 buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
                                 if (currentPiece.GetColour() == "White")

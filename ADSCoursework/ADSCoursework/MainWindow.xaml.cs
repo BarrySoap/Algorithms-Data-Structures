@@ -33,6 +33,11 @@ namespace ADSCoursework
         Facade facade;
         int turnOrder = 0;
         bool pieceTaken = false;
+
+        public struct Turn
+        {
+
+        }
         /*****************************/
 
         public MainWindow()
