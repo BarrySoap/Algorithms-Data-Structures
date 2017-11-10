@@ -231,6 +231,10 @@ namespace ADSCoursework
                                 {
                                     buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
                                 }
+
+                                Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()), 
+                                    Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
+
                                 // Decrement the turn order so that more moves can be made.
                                 turnOrder--;
                                 break;

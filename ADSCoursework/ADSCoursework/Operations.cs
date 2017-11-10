@@ -170,7 +170,7 @@ namespace ADSCoursework
         {
             for (int i = 0; i < whitePieces.Count; i++)
             {
-                if (whitePieces[i].GetNewPosition() == buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Name.Substring(7) && whitePieces[i].IsPieceKing() == true)
+                if (whitePieces[i].IsPieceKing() == true)
                 {
                     buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Content = "K";
                     buttonList[Convert.ToInt32(whitePieces[i].GetNewPosition())].Foreground = Brushes.Black;
@@ -178,7 +178,7 @@ namespace ADSCoursework
             }
             for (int j = 0; j < blackPieces.Count; j++)
             {
-                if (blackPieces[j].GetNewPosition() == buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Name.Substring(7) && blackPieces[j].IsPieceKing() == true)
+                if (blackPieces[j].IsPieceKing() == true)
                 {
                     buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Content = "K";
                     buttonList[Convert.ToInt32(blackPieces[j].GetNewPosition())].Foreground = Brushes.White;

@@ -49,9 +49,6 @@ namespace ADSCoursework
 
             facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
-
-            Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
-                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
             
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             Validations.HasGameEnded(this, whitePieces, blackPieces);
