@@ -132,13 +132,21 @@ namespace ADSCoursework
         {
             for (int i = 0; i < whitePieces.Count; i++)
             {
-                if (currentPiece.GetNewPosition() == whitePieces[i].GetNewPosition())
+                if (currentPiece.GetPosition() == whitePieces[i].GetPosition() && whitePieces[i].IsPieceKing() == true)
+                {
+                    return whitePieces[i];
+                }
+                else if (currentPiece.GetNewPosition() == whitePieces[i].GetNewPosition())
                 {
                     return whitePieces[i];
                 }
             }
             for (int i = 0; i < blackPieces.Count; i++)
             {
+                if (currentPiece.GetPosition() == blackPieces[i].GetPosition() && blackPieces[i].IsPieceKing() == true)
+                {
+                    return blackPieces[i];
+                }
                 if (currentPiece.GetNewPosition() == blackPieces[i].GetNewPosition())
                 {
                     return blackPieces[i];
