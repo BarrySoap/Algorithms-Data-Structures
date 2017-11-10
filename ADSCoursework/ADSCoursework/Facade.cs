@@ -356,7 +356,7 @@ namespace ADSCoursework
         TakePiece tp;
 
         // Initialise the subsystems as a Facade constructor.
-        public Facade(MainWindow main)
+        public Facade(MainWindow main, Stack<MainWindow.Turn> turns)
         {
             cleaner = new BoardCleaning();
             turn = new TurnOrder();

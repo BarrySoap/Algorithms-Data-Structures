@@ -31,20 +31,26 @@ namespace ADSCoursework
         Player currentPlayer = new Player("White");
         Piece currentPiece = new Piece();
         Facade facade;
+        public Stack<Turn> turns;
         int turnOrder = 0;
         bool pieceTaken = false;
 
         public struct Turn
         {
-
+            public int piece1pos;
+            public int piece1NewPos;
+            public bool pieceTaken;
+            public int piece2pos;
+            public int piece2NewPos;
         }
         /*****************************/
 
         public MainWindow()
         {
             InitializeComponent();
-            
-            facade = new Facade(this);
+
+            turns = new Stack<Turn>();
+            facade = new Facade(this, turns);
             facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
         }
 
