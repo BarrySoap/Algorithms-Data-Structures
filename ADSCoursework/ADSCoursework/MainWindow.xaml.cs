@@ -42,8 +42,6 @@ namespace ADSCoursework
             public int takenPiecePos;
             public bool pieceTaken;
         }
-
-        Turn turn;
         /*****************************/
 
         public MainWindow()
@@ -51,34 +49,26 @@ namespace ADSCoursework
             InitializeComponent();
 
             turns = new Stack<Turn>();
-
-            turn.piece1pos = 0;
-            turn.piece1NewPos = 0;
-            turn.takenPiecePos = 0;
-            turn.pieceTaken = false;
-            turns.Push(turn);
-
+            
             facade = new Facade(this);
             facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
+            Turn turn = new Turn();
             currentCell = (Button)sender;
-
-            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, ref turn, turns);
-            if (pieceTaken == true)
-            {
-                facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turn, turns);
-            } else
-            {
-                turns.Push(turn);
-                turn.piece1NewPos = 0;
-                turn.takenPiecePos = 0;
-                turn.pieceTaken = false;
-                turn.piece1pos = 0;
-            }
             
+            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, turns);
+            facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turns);
+
+            if (turnOrder == 0 && currentPiece.GetPosition() != currentPiece.GetNewPosition())
+            {
+                turn.piece1pos = currentPiece.GetPosition();
+                turn.piece1NewPos = currentPiece.GetNewPosition();
+                turns.Push(turn);
+            }
+
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             Validations.HasGameEnded(this, whitePieces, blackPieces);
         }
