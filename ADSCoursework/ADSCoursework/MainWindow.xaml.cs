@@ -39,10 +39,11 @@ namespace ADSCoursework
         {
             public int piece1pos;
             public int piece1NewPos;
+            public int takenPiecePos;
             public bool pieceTaken;
-            public int piece2pos;
-            public int piece2NewPos;
         }
+
+        Turn turn;
         /*****************************/
 
         public MainWindow()
@@ -50,7 +51,14 @@ namespace ADSCoursework
             InitializeComponent();
 
             turns = new Stack<Turn>();
-            facade = new Facade(this, turns);
+
+            turn.piece1pos = 0;
+            turn.piece1NewPos = 0;
+            turn.takenPiecePos = 0;
+            turn.pieceTaken = false;
+            turns.Push(turn);
+
+            facade = new Facade(this);
             facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
         }
 
@@ -58,21 +66,21 @@ namespace ADSCoursework
         {
             currentCell = (Button)sender;
 
-            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
-            facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, ref turn, turns);
+            if (pieceTaken == true)
+            {
+                facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turn, turns);
+            } else
+            {
+                turns.Push(turn);
+                turn.piece1NewPos = 0;
+                turn.takenPiecePos = 0;
+                turn.pieceTaken = false;
+                turn.piece1pos = 0;
+            }
             
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             Validations.HasGameEnded(this, whitePieces, blackPieces);
-        }
-
-        private void btnConsole_Click(object sender, RoutedEventArgs e)
-        {
-            ConsoleAllocator.ShowConsoleWindow();
-        }
-
-        private void btnCloseConsole_Click(object sender, RoutedEventArgs e)
-        {
-            ConsoleAllocator.HideConsoleWindow();
         }
 
         private void btnEndTurn_Click(object sender, RoutedEventArgs e)

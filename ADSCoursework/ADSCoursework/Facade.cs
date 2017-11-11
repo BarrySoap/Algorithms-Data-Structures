@@ -123,10 +123,11 @@ namespace ADSCoursework
     {
         // This class/method contains all of the logic for the basic movement of a piece.
         public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, ref MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
             // and 1, which involves the player moving the piece to a new location.
+            
             switch (turnOrder)
             {
                 case 0:
@@ -144,6 +145,8 @@ namespace ADSCoursework
                     // the position to '48'.
                     currentPiece.SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                     currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                    turn.piece1pos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
+                    turn.piece1NewPos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
 
                     // If the space isn't empty:
                     if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
@@ -160,6 +163,7 @@ namespace ADSCoursework
                             if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
                                 whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                turn.piece1pos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
                             }
                         }
                         // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
@@ -168,6 +172,7 @@ namespace ADSCoursework
                             if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                             {
                                 blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                turn.piece1pos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
                             }
                         }
 
@@ -177,6 +182,7 @@ namespace ADSCoursework
                     break;
                 case 1:
                     currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                    turn.piece1NewPos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
 
                     // Check if the piece isn't trying to be moved to the same space.
                     if (Convert.ToInt32(currentCell.Name.ToString().Substring(7)) != currentPiece.GetPosition())
@@ -208,6 +214,7 @@ namespace ADSCoursework
                                     if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
                                     {
                                         whitePieces[i].SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                        turn.piece1NewPos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
                                     }
                                 }
                                 // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
@@ -216,6 +223,7 @@ namespace ADSCoursework
                                     if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
                                     {
                                         blackPieces[i].SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                        turn.piece1NewPos = Convert.ToInt32(currentCell.Name.ToString().Substring(7));
                                     }
                                 }
                                 // Set the previous cell (where the piece used to be) back to gray.
@@ -315,7 +323,7 @@ namespace ADSCoursework
     class TakePiece
     {
         public void TakePieces(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
-            Button[] buttonList)
+            Button[] buttonList, MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
         {
             if (pieceTaken == true)
             {
@@ -351,15 +359,15 @@ namespace ADSCoursework
     public class Facade
     {
         BoardCleaning cleaner;
-        TurnOrder turn;
+        TurnOrder turnOrd;
         UndoRedoMoves unredo;
         TakePiece tp;
 
         // Initialise the subsystems as a Facade constructor.
-        public Facade(MainWindow main, Stack<MainWindow.Turn> turns)
+        public Facade(MainWindow main)
         {
             cleaner = new BoardCleaning();
-            turn = new TurnOrder();
+            turnOrd = new TurnOrder();
             unredo = new UndoRedoMoves();
             tp = new TakePiece();
         }
@@ -372,9 +380,9 @@ namespace ADSCoursework
         }
 
         public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, ref MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
         {
-            turn.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, ref turn, turns);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }
@@ -386,13 +394,13 @@ namespace ADSCoursework
 
         public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)
         {
-            turn.EndTurn(main, currentPlayer, currentCell);
+            turnOrd.EndTurn(main, currentPlayer, currentCell);
         }
 
         public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
-            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList)
+            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
         {
-            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList);
+            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turn, turns);
         }
     }
 }
