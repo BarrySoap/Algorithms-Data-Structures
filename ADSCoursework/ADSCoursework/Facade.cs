@@ -123,7 +123,7 @@ namespace ADSCoursework
     {
         // This class/method contains all of the logic for the basic movement of a piece.
         public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
             // and 1, which involves the player moving the piece to a new location.
@@ -314,7 +314,7 @@ namespace ADSCoursework
     class TakePiece
     {
         public void TakePieces(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
-            Button[] buttonList, Stack<MainWindow.Turn> turns)
+            Button[] buttonList, ref int takenPiecePos)
         {
             if (pieceTaken == true)
             {
@@ -325,6 +325,7 @@ namespace ADSCoursework
                     if (whitePieces[i].Taken() == true)
                     {
                         tempPos = Convert.ToInt32(whitePieces[i].GetNewPosition());
+                        takenPiecePos = tempPos;
                         takenWhitePieces.Add(whitePieces[i]);
                         buttonList[tempPos].Background = Brushes.Gray;
                         whitePieces.Remove(whitePieces[i]);
@@ -336,13 +337,12 @@ namespace ADSCoursework
                     if (blackPieces[j].Taken() == true)
                     {
                         tempPos = Convert.ToInt32(blackPieces[j].GetNewPosition());
+                        takenPiecePos = tempPos;
                         takenBlackPieces.Add(blackPieces[j]);
                         buttonList[tempPos].Background = Brushes.Gray;
                         blackPieces.Remove(blackPieces[j]);
                     }
                 }
-
-                pieceTaken = false;
             }
         }
     }
@@ -371,9 +371,9 @@ namespace ADSCoursework
         }
 
         public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
-            turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, turns);
+            turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }
@@ -389,9 +389,9 @@ namespace ADSCoursework
         }
 
         public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
-            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, Stack<MainWindow.Turn> turns)
+            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, ref int takenPiecePos)
         {
-            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turns);
+            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
         }
     }
 }

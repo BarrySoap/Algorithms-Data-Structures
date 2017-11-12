@@ -57,18 +57,26 @@ namespace ADSCoursework
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
             Turn turn = new Turn();
+            int takenPiecePos = 0;
             currentCell = (Button)sender;
             
-            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, turns);
-            facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, turns);
+            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
 
             if (turnOrder == 0 && currentPiece.GetPosition() != currentPiece.GetNewPosition())
             {
+                if (pieceTaken == true)
+                {
+                    turn.pieceTaken = true;
+                    turn.takenPiecePos = takenPiecePos;
+                }
+
                 turn.piece1pos = currentPiece.GetPosition();
                 turn.piece1NewPos = currentPiece.GetNewPosition();
                 turns.Push(turn);
             }
 
+            pieceTaken = false;
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             Validations.HasGameEnded(this, whitePieces, blackPieces);
         }
