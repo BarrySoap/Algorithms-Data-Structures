@@ -105,8 +105,9 @@
         <Button x:Name="btnCell62" Content="" HorizontalAlignment="Left" Height="50" Margin="311,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
         <Button x:Name="btnCell63" Content="" HorizontalAlignment="Left" Height="50" Margin="361,10,0,0" VerticalAlignment="Top" Width="50" Click="btnCell1_Click"/>
         <TextBox x:Name="txtTurnOrder" HorizontalAlignment="Left" Height="28" Margin="510,59,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="78" IsEnabled="False"/>
-        <Button x:Name="btnEndTurn" Content="End Turn" HorizontalAlignment="Left" Height="50" Margin="469,209,0,0" VerticalAlignment="Top" Width="150" Click="btnEndTurn_Click"/>
+        <Button x:Name="btnEndTurn" Content="End Turn" HorizontalAlignment="Left" Height="50" Margin="469,248,0,0" VerticalAlignment="Top" Width="150" Click="btnEndTurn_Click"/>
         <Button x:Name="btnUndo" Content="Undo Move" HorizontalAlignment="Left" Height="30" Margin="469,159,0,0" VerticalAlignment="Top" Width="150" Click="btnUndo_Click"/>
+        <Button x:Name="btnRedo" Content="Redo Move" HorizontalAlignment="Left" Height="30" Margin="469,194,0,0" VerticalAlignment="Top" Width="150" Click="btnRedo_Click"/>
 
     </Grid>
 </Window>

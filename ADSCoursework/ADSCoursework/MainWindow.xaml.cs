@@ -32,6 +32,7 @@ namespace ADSCoursework
         Piece currentPiece = new Piece();
         Facade facade;
         public Stack<Turn> turns;
+        public Stack<Turn> unDoneTurns;
         int turnOrder = 0;
         bool pieceTaken = false;
 
@@ -50,6 +51,7 @@ namespace ADSCoursework
             InitializeComponent();
 
             turns = new Stack<Turn>();
+            unDoneTurns = new Stack<Turn>();
             
             facade = new Facade(this);
             facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
@@ -90,7 +92,12 @@ namespace ADSCoursework
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.UndoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces);
+            facade.UndoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+        }
+
+        private void btnRedo_Click(object sender, RoutedEventArgs e)
+        {
+            facade.RedoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
     }
 }
