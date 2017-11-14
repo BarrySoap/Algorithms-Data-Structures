@@ -88,7 +88,7 @@ namespace ADSCoursework
 
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.UndoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList);
+            facade.UndoFacade(this, ref turnOrder, currentPiece, currentCell, currentPlayer, buttonList, whitePieces, blackPieces, turns);
         }
     }
 }

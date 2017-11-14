@@ -27,6 +27,11 @@ namespace ADSCoursework
             return false;
         }
 
+        public static void MovePiece(Piece piece)
+        {
+
+        }
+
         public static bool FactionCheck(Button[] buttonList, int oldPosition, int newPosition)
         {
             if (oldPosition - newPosition == 14)

@@ -273,7 +273,8 @@ namespace ADSCoursework
 
     class UndoRedoMoves
     {
-        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList)
+        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, 
+            Stack<MainWindow.Turn> turns)
         {
             // If a piece was already selected to be moved,
             if (turnOrder == 1)
@@ -294,6 +295,33 @@ namespace ADSCoursework
                         buttonList[i].Background = Brushes.Black;
                     }
                 }
+            } else if (turns.Count > 0)
+            {
+                MainWindow.Turn temp = turns.Pop();
+                if (temp.pieceTaken == false)
+                {
+                    for (int i = 0; i < whitePieces.Count; i++)
+                    {
+                        if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                            whitePieces[i].SetNewPosition(temp.piece1pos);
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                        }
+                    }
+                    for (int i = 0; i < blackPieces.Count; i++)
+                    {
+                        if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                            blackPieces[i].SetNewPosition(temp.piece1pos);
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                        }
+                    }
+                }
+            } else
+            {
+                MessageBox.Show("No moves to undo!");
             }
 
             for (int i = 0; i < buttonList.Length; i++)
@@ -378,9 +406,10 @@ namespace ADSCoursework
             cleaner.CleanEdges(blackPieces);
         }
 
-        public void UndoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList)
+        public void UndoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList,
+            List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns)
         {
-            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList);
+            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList, whitePieces, blackPieces, turns);
         }
 
         public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)

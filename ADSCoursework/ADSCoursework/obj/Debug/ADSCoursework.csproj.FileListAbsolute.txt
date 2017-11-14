@@ -25,7 +25,6 @@ C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\MainWindow.
 C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.g.resources
 C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.Properties.Resources.resources
 C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.csproj.GenerateResource.Cache
-C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.csproj.CoreCompileInputs.cache
 C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.exe
 C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.pdb
 C:\Users\40208762\Desktop\Algorithms-Data-Structures\ADSCoursework\ADSCoursework\bin\Debug\ADSCoursework.exe.config
@@ -43,3 +42,4 @@ C:\Users\40208762\Desktop\Algorithms-Data-Structures\ADSCoursework\ADSCoursework
 C:\Users\40208762\Desktop\Algorithms-Data-Structures\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.csproj.CoreCompileInputs.cache
 C:\Users\40208762\Desktop\Algorithms-Data-Structures\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.exe
 C:\Users\40208762\Desktop\Algorithms-Data-Structures\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.pdb
+C:\Users\glenn\Desktop\ADSRepo\ADSCoursework\ADSCoursework\obj\Debug\ADSCoursework.csproj.CoreCompileInputs.cache
