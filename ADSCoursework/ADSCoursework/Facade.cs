@@ -55,8 +55,9 @@ namespace ADSCoursework
                     blackPieces[j].SetNewPosition(i);
                     buttonList[i].Background = Brushes.Black;
                     j++;
-                // And finally, the top row of black pieces.
-                } else if (i % 2 == 0 && i > 15 && i < 23)
+                    // And finally, the top row of black pieces.
+                }
+                else if (i % 2 == 0 && i > 15 && i < 23)
                 {
                     blackPieces[j].SetPosition(i);
                     blackPieces[j].SetNewPosition(i);
@@ -81,8 +82,9 @@ namespace ADSCoursework
                     whitePieces[k].SetNewPosition(i);
                     buttonList[i].Background = Brushes.White;
                     k++;
-                // And finally, the top row.
-                } else if (i % 2 == 1 && i > 55 && i < 64)
+                    // And finally, the top row.
+                }
+                else if (i % 2 == 1 && i > 55 && i < 64)
                 {
                     whitePieces[k].SetPosition(i);
                     whitePieces[k].SetNewPosition(i);
@@ -111,7 +113,8 @@ namespace ADSCoursework
                 {
                     // If any of these if statements are true, then the piece must be on a side or edge of the board.
                     pieces[i].SetEdge(true);
-                } else
+                }
+                else
                 {
                     pieces[i].SetEdge(false);
                 }
@@ -122,7 +125,7 @@ namespace ADSCoursework
     class TurnOrder
     {
         // This class/method contains all of the logic for the basic movement of a piece.
-        public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
+        public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer,
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
@@ -169,7 +172,7 @@ namespace ADSCoursework
                                 blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                             }
                         }
-                        
+
                         // Increment the turn order.
                         turnOrder++;
                     }
@@ -187,7 +190,8 @@ namespace ADSCoursework
                             if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
                             {
                                 buttonList[i].Background = Brushes.Black;
-                            } else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                            }
+                            else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
                             {
                                 buttonList[i].Background = Brushes.White;
                             }
@@ -197,8 +201,8 @@ namespace ADSCoursework
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             // Check if the move is valid, from within the Validations class.
-                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()), 
-                                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true && 
+                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
+                                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true &&
                                 Operations.EdgeToEdge(Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == false)
                             {
                                 // If it passes, set the new position.
@@ -229,23 +233,26 @@ namespace ADSCoursework
                                     buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
                                 }
 
-                                Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()), 
+                                Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
                                     Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
-                                
+
                                 // Decrement the turn order so that more moves can be made.
                                 turnOrder--;
                                 break;
-                            } else
+                            }
+                            else
                             {
                                 MessageBox.Show("Move is not valid!");
                                 break;
                             }
-                        } else
+                        }
+                        else
                         {
                             MessageBox.Show("Please make a valid move!");
                             break;
                         }
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show("You can't move a piece to the same place!");
                         break;
@@ -264,7 +271,8 @@ namespace ADSCoursework
             {
                 currentPlayer.SetColour("White");
                 main.txtTurnOrder.Text = "Turn: White";
-            } else
+            }
+            else
             {
                 MessageBox.Show("You can't end your turn while a piece is selected! Try an undo.");
             }
@@ -273,8 +281,8 @@ namespace ADSCoursework
 
     class UndoRedoMoves
     {
-        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, 
-            Stack<MainWindow.Turn> turns)
+        public void UndoMove(MainWindow main, ref int turnOrder, Button currentCell, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+            Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces)
         {
             // If a piece was already selected to be moved,
             if (turnOrder == 1)
@@ -295,31 +303,53 @@ namespace ADSCoursework
                         buttonList[i].Background = Brushes.Black;
                     }
                 }
-            } else if (turns.Count > 0)
+            }
+            else if (turns.Count > 0)
             {
                 MainWindow.Turn temp = turns.Pop();
-                if (temp.pieceTaken == false)
+                for (int i = 0; i < whitePieces.Count; i++)
                 {
-                    for (int i = 0; i < whitePieces.Count; i++)
+                    if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition())
                     {
-                        if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition())
+                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                        whitePieces[i].SetNewPosition(temp.piece1pos);
+                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                    }
+                }
+                for (int i = 0; i < blackPieces.Count; i++)
+                {
+                    if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition())
+                    {
+                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                        blackPieces[i].SetNewPosition(temp.piece1pos);
+                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                    }
+                }
+                if (temp.pieceTaken == true)
+                {
+                    for (int i = 0; i < takenWhitePieces.Count; i++)
+                    {
+                        if (temp.takenPiecePos == takenWhitePieces[i].GetPosition() || temp.takenPiecePos == takenWhitePieces[i].GetNewPosition())
                         {
-                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
-                            whitePieces[i].SetNewPosition(temp.piece1pos);
-                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                            Piece tempPiece = takenWhitePieces.ElementAt(i);
+                            takenWhitePieces.RemoveAt(i);
+                            whitePieces.Add(tempPiece);
+                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.White;
                         }
                     }
-                    for (int i = 0; i < blackPieces.Count; i++)
+                    for (int j = 0; j < takenBlackPieces.Count; j++)
                     {
-                        if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition())
+                        if (temp.takenPiecePos == takenBlackPieces[j].GetPosition() || temp.takenPiecePos == takenBlackPieces[j].GetNewPosition())
                         {
-                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
-                            blackPieces[i].SetNewPosition(temp.piece1pos);
-                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                            Piece tempPiece = takenBlackPieces.ElementAt(j);
+                            takenBlackPieces.RemoveAt(j);
+                            blackPieces.Add(tempPiece);
+                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Black;
                         }
                     }
                 }
-            } else
+            }
+            else
             {
                 MessageBox.Show("No moves to undo!");
             }
@@ -331,7 +361,8 @@ namespace ADSCoursework
                 {
                     // Set them back to their respective colours.
                     buttonList[i].Background = Brushes.Black;
-                } else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                }
+                else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
                 {
                     buttonList[i].Background = Brushes.White;
                 }
@@ -398,7 +429,7 @@ namespace ADSCoursework
             cleaner.CleanEdges(blackPieces);
         }
 
-        public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer, 
+        public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer,
             ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
@@ -407,9 +438,9 @@ namespace ADSCoursework
         }
 
         public void UndoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Button currentCell, Player currentPlayer, Button[] buttonList,
-            List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns)
+            List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces)
         {
-            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList, whitePieces, blackPieces, turns);
+            unredo.UndoMove(main, ref turnOrder, currentCell, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces);
         }
 
         public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)
@@ -417,7 +448,7 @@ namespace ADSCoursework
             turnOrd.EndTurn(main, currentPlayer, currentCell);
         }
 
-        public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces, 
+        public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces,
             List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, ref int takenPiecePos)
         {
             tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
