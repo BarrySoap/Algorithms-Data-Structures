@@ -37,6 +37,7 @@ namespace ADSCoursework
 
         public struct Turn
         {
+            public string pieceColour;
             public int piece1pos;
             public int piece1NewPos;
             public int takenPiecePos;
@@ -71,6 +72,7 @@ namespace ADSCoursework
                     turn.takenPiecePos = takenPiecePos;
                 }
 
+                turn.pieceColour = currentPiece.GetColour();
                 turn.piece1pos = currentPiece.GetPosition();
                 turn.piece1NewPos = currentPiece.GetNewPosition();
                 turns.Push(turn);

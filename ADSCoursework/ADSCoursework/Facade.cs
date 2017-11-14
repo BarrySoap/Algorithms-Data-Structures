@@ -309,7 +309,7 @@ namespace ADSCoursework
                 MainWindow.Turn temp = turns.Pop();
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
-                    if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition())
+                    if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition() && temp.pieceColour == "White")
                     {
                         buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
                         whitePieces[i].SetNewPosition(temp.piece1pos);
@@ -318,13 +318,14 @@ namespace ADSCoursework
                 }
                 for (int i = 0; i < blackPieces.Count; i++)
                 {
-                    if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition())
+                    if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition() && temp.pieceColour == "Black")
                     {
                         buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
                         blackPieces[i].SetNewPosition(temp.piece1pos);
                         buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
                     }
                 }
+
                 if (temp.pieceTaken == true)
                 {
                     for (int i = 0; i < takenWhitePieces.Count; i++)
@@ -333,6 +334,7 @@ namespace ADSCoursework
                         {
                             Piece tempPiece = takenWhitePieces.ElementAt(i);
                             takenWhitePieces.RemoveAt(i);
+                            tempPiece.SetTaken(false);
                             whitePieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.White;
                         }
@@ -343,6 +345,7 @@ namespace ADSCoursework
                         {
                             Piece tempPiece = takenBlackPieces.ElementAt(j);
                             takenBlackPieces.RemoveAt(j);
+                            tempPiece.SetTaken(false);
                             blackPieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Black;
                         }
