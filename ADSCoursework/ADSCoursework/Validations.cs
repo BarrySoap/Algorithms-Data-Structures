@@ -142,7 +142,7 @@ namespace ADSCoursework
                     }
                     else if (Operations.FactionCheck(buttonList, oldPosition, newPosition))
                     {
-                        if (Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == true ||
+                        if (Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 9) == true &&
                             Operations.EdgeOperation(currentPiece, blackPieces, Convert.ToInt32(currentPiece.GetPosition()) - 7) == true)
                         {
                             return false;
@@ -178,7 +178,7 @@ namespace ADSCoursework
                     }
                     else if (Operations.FactionCheck(buttonList, oldPosition, newPosition))
                     {
-                        if (Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 9) == true ||
+                        if (Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 9) == true &&
                             Operations.EdgeOperation(currentPiece, whitePieces, Convert.ToInt32(currentPiece.GetPosition()) + 7) == true)
                         {
                             return false;
