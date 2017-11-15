@@ -311,22 +311,28 @@ namespace ADSCoursework
 
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
-                    if (temp.piece1pos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetPosition() || 
-                        temp.piece1NewPos == whitePieces[i].GetNewPosition() && temp.pieceColour == "White")
+                    if (temp.pieceColour == "White")
                     {
-                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
-                        whitePieces[i].SetNewPosition(temp.piece1pos);
-                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                        if (temp.piece1pos == whitePieces[i].GetPosition() ||
+                        temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                            whitePieces[i].SetNewPosition(temp.piece1pos);
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                        }
                     }
                 }
                 for (int i = 0; i < blackPieces.Count; i++)
                 {
-                    if (temp.piece1pos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetPosition()  ||
-                        temp.piece1NewPos == blackPieces[i].GetNewPosition() && temp.pieceColour == "Black")
+                    if (temp.pieceColour == "Black")
                     {
-                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
-                        blackPieces[i].SetNewPosition(temp.piece1pos);
-                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                        if (temp.piece1pos == blackPieces[i].GetPosition() ||
+                        temp.piece1NewPos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetNewPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
+                            blackPieces[i].SetNewPosition(temp.piece1pos);
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                        }
                     }
                 }
 
@@ -386,22 +392,28 @@ namespace ADSCoursework
 
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
-                    if (temp.pieceColour == "White" && temp.piece1pos == whitePieces[i].GetPosition() || 
-                        temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
+                    if (temp.pieceColour == "White")
                     {
-                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
-                        whitePieces[i].SetNewPosition(temp.piece1NewPos);
-                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.White;
+                        if (temp.piece1pos == whitePieces[i].GetPosition() ||
+                        temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
+                            whitePieces[i].SetNewPosition(temp.piece1NewPos);
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.White;
+                        }
                     }
                 }
                 for (int i = 0; i < blackPieces.Count; i++)
                 {
-                    if (temp.pieceColour == "Black" && temp.piece1pos == blackPieces[i].GetPosition() || 
-                        temp.piece1NewPos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetNewPosition())
+                    if (temp.pieceColour == "Black")
                     {
-                        buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
-                        blackPieces[i].SetNewPosition(temp.piece1NewPos);
-                        buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Black;
+                        if (temp.piece1pos == blackPieces[i].GetPosition() ||
+                        temp.piece1NewPos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetNewPosition())
+                        {
+                            buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
+                            blackPieces[i].SetNewPosition(temp.piece1NewPos);
+                            buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Black;
+                        }
                     }
                 }
 
