@@ -288,7 +288,7 @@ namespace ADSCoursework
     // This class contains logic undo/redoing a move.
     class UndoRedoMoves
     {
-        public void UndoMove(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+        public void UndoMove(MainWindow main, ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
             Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
             // If a piece was already selected to be moved,
@@ -328,11 +328,22 @@ namespace ADSCoursework
                         if (temp.piece1pos == whitePieces[i].GetPosition() ||
                         temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
                         {
+                            if (temp.wasPieceKing == true && temp.piece1NewPos < 55)
+                            {
+                                buttonList.ElementAt(temp.piece1NewPos).Content = "K";
+                                buttonList.ElementAt(temp.piece1NewPos).Foreground = Brushes.Black;
+                            }
+                            else
+                            {
+                                buttonList.ElementAt(temp.piece1NewPos).Content = buttonList.ElementAt(temp.piece1NewPos).Name.Substring(7);
+                            }
                             // The current cell has to be set back to empty,
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
                             whitePieces[i].SetNewPosition(temp.piece1pos);
                             // Then the previous cell must be the new selection.
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
+                            currentPlayer.SetColour("White");
+                            main.txtTurnOrder.Text = "Turn: White";
                         }
                     }
                 }
@@ -343,12 +354,25 @@ namespace ADSCoursework
                         if (temp.piece1pos == blackPieces[i].GetPosition() ||
                         temp.piece1NewPos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetNewPosition())
                         {
+                            if (temp.wasPieceKing == true && temp.piece1NewPos < 55)
+                            {
+                                buttonList.ElementAt(temp.piece1pos).Content = "K";
+                                buttonList.ElementAt(temp.piece1pos).Foreground = Brushes.White;
+                            }
+                            else
+                            {
+                                buttonList.ElementAt(temp.piece1pos).Content = buttonList.ElementAt(temp.piece1pos).Name.Substring(7);
+                                buttonList.ElementAt(temp.piece1pos).Foreground = Brushes.Black;
+                            }
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
                             blackPieces[i].SetNewPosition(temp.piece1pos);
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.Black;
+                            currentPlayer.SetColour("Black");
+                            main.txtTurnOrder.Text = "Turn: Black";
                         }
                     }
                 }
+                Operations.CheckColouring(whitePieces, blackPieces, buttonList);
 
                 // If a piece was taken during the turn,
                 if (temp.pieceTaken == true)
@@ -475,14 +499,14 @@ namespace ADSCoursework
         }
 
         // This method contains logic for replaying a game.
-        public void ReplayGame(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+        public void ReplayGame(MainWindow main, ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
             Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
             // If there are still turns,
             while (turns.Count > 0)
             {
                 // Put the board back to it's original state,
-                this.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+                this.UndoMove(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
             }
             while (undoneTurns.Count > 0)
             {
@@ -573,10 +597,10 @@ namespace ADSCoursework
             tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
         }
 
-        public void UndoFacade(ref int turnOrder, Piece currentPiece, Player currentPlayer, Button[] buttonList,
+        public void UndoFacade(MainWindow main, ref int turnOrder, Piece currentPiece, Player currentPlayer, Button[] buttonList,
             List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
-            unredo.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            unredo.UndoMove(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
         }
 
         public void RedoFacade(Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns,
@@ -590,10 +614,10 @@ namespace ADSCoursework
             turnOrd.EndTurn(main, currentPlayer, currentCell);
         }
 
-        public void ReplayFacade(ref int turnOrder, Player currentPlayer, Button[] buttonList,
+        public void ReplayFacade(MainWindow main, ref int turnOrder, Player currentPlayer, Button[] buttonList,
             List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
-            unredo.ReplayGame(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            unredo.ReplayGame(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
         }
     }
 }

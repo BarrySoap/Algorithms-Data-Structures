@@ -362,5 +362,27 @@ namespace ADSCoursework
                 }
             }
         }
+
+        public static void EditTurn(Piece currentPiece, ref bool pieceTaken, ref int takenPiecePos, MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
+        {
+            // Check if a piece was taken.
+            if (pieceTaken == true)
+            {
+                // If so, update the struct.
+                turn.pieceTaken = true;
+                turn.takenPiecePos = takenPiecePos;
+            }
+            // Update the struct accordingly to record the turn.
+            turn.pieceColour = currentPiece.GetColour();
+            turn.piece1pos = currentPiece.GetPosition();
+            turn.piece1NewPos = currentPiece.GetNewPosition();
+
+            if (turn.piece1NewPos > 55 && turn.piece1NewPos < 64)
+            {
+                turn.wasPieceKing = true;
+            }
+
+            turns.Push(turn);
+        }
     }
 }

@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 /* Author: Glenn Wilkie-Sullivan (40208762)
  * Class Purpose: This contains the entry point for the program, and the
@@ -38,6 +41,7 @@ namespace ADSCoursework
             public int piece1NewPos;
             public int takenPiecePos;
             public bool pieceTaken;
+            public bool wasPieceKing;
         }
         /*****************************/
 
@@ -68,19 +72,7 @@ namespace ADSCoursework
             // If the turn order is 0 (Which should have been decremented by the move facade),
             if (turnOrder == 0 && currentPiece.GetPosition() != currentPiece.GetNewPosition())
             {
-                // Check if a piece was taken.
-                if (pieceTaken == true)
-                {
-                    // If so, update the struct.
-                    turn.pieceTaken = true;
-                    turn.takenPiecePos = takenPiecePos;
-                }
-
-                // Update the struct accordingly to record the turn.
-                turn.pieceColour = currentPiece.GetColour();
-                turn.piece1pos = currentPiece.GetPosition();
-                turn.piece1NewPos = currentPiece.GetNewPosition();
-                turns.Push(turn);
+                Operations.EditTurn(currentPiece, ref pieceTaken, ref takenPiecePos, turn, turns);
             }
 
             // Check that all the pieces are the correct colour.
@@ -88,7 +80,7 @@ namespace ADSCoursework
             // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
             
-            if (turnOrder == 0 && pieceTaken == false)
+            if (turnOrder == 0 && pieceTaken == false && currentCell.Background != Brushes.Gray)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
             } else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false)
@@ -103,7 +95,7 @@ namespace ADSCoursework
         // Undo logic from the facade class.
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
-            facade.UndoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+            facade.UndoFacade(this, ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
 
         // Redo logic from the facade class.
@@ -115,7 +107,7 @@ namespace ADSCoursework
         // Game replay logic from the facade class.
         private void btnReplay_Click(object sender, RoutedEventArgs e)
         {
-            facade.ReplayFacade(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+            facade.ReplayFacade(this, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
     }
 }
