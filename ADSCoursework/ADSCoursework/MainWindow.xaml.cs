@@ -88,7 +88,10 @@ namespace ADSCoursework
             // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
             
-            if (turnOrder == 0 && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false && pieceTaken == true)
+            if (turnOrder == 0 && pieceTaken == false)
+            {
+                facade.EndTurnFacade(this, currentPlayer, currentCell);
+            } else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
             }

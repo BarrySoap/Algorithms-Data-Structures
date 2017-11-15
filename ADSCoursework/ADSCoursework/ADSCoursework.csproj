@@ -54,7 +54,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AI.cs" />
     <Compile Include="Facade.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="Validations.cs" />
