@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Timers;
 using System.Windows.Controls;
 using System.Windows.Media;
+
+/* Author: Glenn Wilkie-Sullivan (40208762)
+ * Class Purpose: Contains all logic for making the game run, including moving pieces,
+ *                taking pieces, undo moves, redo moves, etc.
+ * Date last modified: 15/11/2017
+ */
 
 namespace ADSCoursework
 {
@@ -14,7 +17,9 @@ namespace ADSCoursework
     {
         public void CleanButtons(MainWindow main, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, Player currentPlayer)
         {
+            // Accumulator for iterating through each black piece.
             int j = 0;
+            // Accumulator for iterating through each white piece.
             int k = 0;
 
             for (int i = 0; i < 12; i++)
@@ -27,6 +32,7 @@ namespace ADSCoursework
                 blackPieces.Add(blackPiece);
             }
 
+            // On the GUI, show who's turn it is.
             main.txtTurnOrder.Text = "Turn: " + currentPlayer.GetColour();
 
             // For all 64 tiles (or buttons), set the background colour to gray.
@@ -40,7 +46,7 @@ namespace ADSCoursework
 
             for (int i = 0; i < 64; i++)
             {
-                // Set Black Pieces in their respective starting positions //
+                // Set Black Pieces in their respective starting positions:
                 if (i % 2 == 0 && i < 8)
                 {
                     blackPieces[j].SetPosition(i);
@@ -65,9 +71,8 @@ namespace ADSCoursework
                     buttonList[i].Background = Brushes.Black;
                     j++;
                 }
-                /***********************************************************/
 
-                // Set White Pieces in their respective starting positions //
+                // Set White Pieces in their respective starting positions:
                 if (i % 2 == 1 && i > 40 && i < 48)
                 {
                     whitePieces[k].SetPosition(i);
@@ -92,25 +97,24 @@ namespace ADSCoursework
                     buttonList[i].Background = Brushes.White;
                     k++;
                 }
-                /***********************************************************/
             }
         }
 
-        // This method is used a check to see if any pieces are on the sides or edges of
-        // the board.
+        // This method is used as a constant check to see if any pieces are on the
+        // sides or edges of the board.
         public void CleanEdges(List<Piece> pieces)
         {
             // For each piece in a given list (black or white pieces)
             for (int i = 0; i < pieces.Count; i++)
             {
                 // Check the entire left column of the board (indexes are divisible by 8).
-                if (Convert.ToInt32(pieces[i].GetNewPosition()) % 8 == 0 ||
+                if (pieces[i].GetNewPosition() % 8 == 0 ||
                     // Check if the index divided by eight returns a remainder of 7 (For the right column).
-                    Convert.ToInt32(pieces[i].GetNewPosition()) % 8 == 7 ||
+                    pieces[i].GetNewPosition() % 8 == 7 ||
                     // For the top row,
-                    Convert.ToInt32(pieces[i].GetNewPosition()) > 55 ||
+                    pieces[i].GetNewPosition() > 55 ||
                     // and then the bottom row.
-                    Convert.ToInt32(pieces[i].GetNewPosition()) < 8)
+                    pieces[i].GetNewPosition() < 8)
                 {
                     // If any of these if statements are true, then the piece must be on a side or edge of the board.
                     pieces[i].SetEdge(true);
@@ -134,6 +138,7 @@ namespace ADSCoursework
             switch (turnOrder)
             {
                 case 0:
+                    // If the cell is white, the current piece selected must be white.
                     if (currentCell.Background == Brushes.White)
                     {
                         currentPiece.SetColour("White");
@@ -202,9 +207,9 @@ namespace ADSCoursework
                         if (Validations.IsSpaceEmpty(currentCell) == true)
                         {
                             // Check if the move is valid, from within the Validations class.
-                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
-                                Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces) == true &&
-                                Operations.EdgeToEdge(Convert.ToInt32(currentPiece.GetPosition()), Convert.ToInt32(currentPiece.GetNewPosition())) == false)
+                            if (Validations.IsMoveValid(currentCell, currentPiece, buttonList, currentPiece.GetPosition(),
+                                currentPiece.GetNewPosition(), ref pieceTaken, whitePieces, blackPieces) == true &&
+                                Operations.EdgeToEdge(currentPiece.GetPosition(), currentPiece.GetNewPosition()) == false)
                             {
                                 // If it passes, set the new position.
                                 for (int i = 0; i < whitePieces.Count; i++)
@@ -223,19 +228,20 @@ namespace ADSCoursework
                                     }
                                 }
                                 // Set the previous cell (where the piece used to be) back to gray.
-                                buttonList.ElementAt(Convert.ToInt32(currentPiece.GetPosition())).Background = Brushes.Gray;
+                                buttonList.ElementAt(currentPiece.GetPosition()).Background = Brushes.Gray;
                                 if (currentPiece.GetColour() == "White")
                                 {
                                     // The new position should be for a white piece.
-                                    buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.White;
+                                    buttonList.ElementAt(currentPiece.GetNewPosition()).Background = Brushes.White;
                                 }
                                 else
                                 {
-                                    buttonList.ElementAt(Convert.ToInt32(currentPiece.GetNewPosition())).Background = Brushes.Black;
+                                    buttonList.ElementAt(currentPiece.GetNewPosition()).Background = Brushes.Black;
                                 }
 
-                                Validations.IsPieceKing(currentCell, currentPiece, buttonList, Convert.ToInt32(currentPiece.GetPosition()),
-                                    Convert.ToInt32(currentPiece.GetNewPosition()), ref pieceTaken, whitePieces, blackPieces);
+                                // Check if the piece is a king. If so, update accordingly.
+                                Validations.IsPieceKing(currentCell, currentPiece, buttonList, currentPiece.GetPosition(),
+                                    currentPiece.GetNewPosition(), ref pieceTaken, whitePieces, blackPieces);
 
                                 // Decrement the turn order so that more moves can be made.
                                 turnOrder--;
@@ -261,10 +267,13 @@ namespace ADSCoursework
             }
         }
 
+        // This method is used to end a turn.
         public void EndTurn(MainWindow main, Player currentPlayer, Button currentCell)
         {
+            // If there aren't any pieces currently highlighted,
             if (currentPlayer.GetColour() == "White" && currentCell.Background != Brushes.Gold)
             {
+                // The current player is the opposite of the previous turns' player.
                 currentPlayer.SetColour("Black");
                 main.txtTurnOrder.Text = "Turn: Black";
             }
@@ -280,6 +289,7 @@ namespace ADSCoursework
         }
     }
 
+    // This class contains logic undo/redoing a move.
     class UndoRedoMoves
     {
         public void UndoMove(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
@@ -305,20 +315,27 @@ namespace ADSCoursework
                     }
                 }
             }
+            // If there are recorded turns,
             else if (turns.Count > 0)
             {
+                // Get the latest turn.
                 MainWindow.Turn temp = turns.Pop();
+                // Push this turn onto a stack so that it can be redone.
                 undoneTurns.Push(temp);
 
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
+                    // If the latest turn was a white piece being moved,
                     if (temp.pieceColour == "White")
                     {
+                        // Iterate through the list of pieces to find the piece in question (using their positions).
                         if (temp.piece1pos == whitePieces[i].GetPosition() ||
                         temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
                         {
+                            // The current cell has to be set back to empty,
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Gray;
                             whitePieces[i].SetNewPosition(temp.piece1pos);
+                            // Then the previous cell must be the new selection.
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.White;
                         }
                     }
@@ -337,16 +354,21 @@ namespace ADSCoursework
                     }
                 }
 
+                // If a piece was taken during the turn,
                 if (temp.pieceTaken == true)
                 {
                     for (int i = 0; i < takenWhitePieces.Count; i++)
                     {
+                        // Find the piece in question from the list of taken pieces.
                         if (temp.takenPiecePos == takenWhitePieces[i].GetPosition() || temp.takenPiecePos == takenWhitePieces[i].GetNewPosition())
                         {
+                            // Take the piece from the list,
                             Piece tempPiece = takenWhitePieces.ElementAt(i);
                             takenWhitePieces.RemoveAt(i);
                             tempPiece.SetTaken(false);
+                            // Then add it back to the original pieces list.
                             whitePieces.Add(tempPiece);
+                            // Show it on the board.
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.White;
                         }
                     }
@@ -383,23 +405,29 @@ namespace ADSCoursework
             }
         }
 
-        public void RedoMove(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+        public void RedoMove(Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
             Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
+            // Check if any moves were undone.
             if (undoneTurns.Count > 0)
             {
+                // Get the latest undone turn.
                 MainWindow.Turn temp = undoneTurns.Pop();
                 turns.Push(temp);
 
+                // All the logic is the same as the previous 'undo' function, except for a couple of changes.
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
                     if (temp.pieceColour == "White")
                     {
+                        // The original pieces list has to be iterated through, rather than the list of taken pieces.
                         if (temp.piece1pos == whitePieces[i].GetPosition() ||
                         temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
                         {
+                            // The original cell is then set back to empty,
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
                             whitePieces[i].SetNewPosition(temp.piece1NewPos);
+                            // Whereas the new cell as rechosen as the position.
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.White;
                         }
                     }
@@ -450,37 +478,49 @@ namespace ADSCoursework
             }
         }
 
+        // This method contains logic for replaying a game.
         public void ReplayGame(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
             Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
+            // If there are still turns,
             while (turns.Count > 0)
             {
+                // Put the board back to it's original state,
                 this.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
             }
             while (undoneTurns.Count > 0)
             {
-                this.RedoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+                // Then redo all the moves as a replay.
+                this.RedoMove(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
             }
         }
     }
 
+    // This class contains logic solely for taking a piece.
     class TakePiece
     {
         public void TakePieces(ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces,
             Button[] buttonList, ref int takenPiecePos)
         {
+            // If the global boolean was triggered to signal a piece being taken,
             if (pieceTaken == true)
             {
                 int tempPos = 0;
 
+                // Check if a white piece was taken.
                 for (int i = 0; i < whitePieces.Count; i++)
                 {
+                    // If so,
                     if (whitePieces[i].Taken() == true)
                     {
-                        tempPos = Convert.ToInt32(whitePieces[i].GetNewPosition());
+                        tempPos = whitePieces[i].GetNewPosition();
+                        // Update the turn struct with the position of the taken piece.
                         takenPiecePos = tempPos;
+                        // Then, add it to a list of taken pieces.
                         takenWhitePieces.Add(whitePieces[i]);
+                        // Set the cell to empty,
                         buttonList[tempPos].Background = Brushes.Gray;
+                        // Then remove it from the active pieces.
                         whitePieces.Remove(whitePieces[i]);
                     }
                 }
@@ -489,7 +529,7 @@ namespace ADSCoursework
                 {
                     if (blackPieces[j].Taken() == true)
                     {
-                        tempPos = Convert.ToInt32(blackPieces[j].GetNewPosition());
+                        tempPos = blackPieces[j].GetNewPosition();
                         takenPiecePos = tempPos;
                         takenBlackPieces.Add(blackPieces[j]);
                         buttonList[tempPos].Background = Brushes.Gray;
@@ -508,7 +548,7 @@ namespace ADSCoursework
         TakePiece tp;
 
         // Initialise the subsystems as a Facade constructor.
-        public Facade(MainWindow main)
+        public Facade()
         {
             cleaner = new BoardCleaning();
             turnOrd = new TurnOrder();
@@ -543,10 +583,10 @@ namespace ADSCoursework
             unredo.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
         }
 
-        public void RedoFacade(ref int turnOrder, Piece currentPiece, Player currentPlayer, Button[] buttonList,
-            List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
+        public void RedoFacade(Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns,
+            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
-            unredo.RedoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            unredo.RedoMove(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
         }
 
         public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)
@@ -554,7 +594,7 @@ namespace ADSCoursework
             turnOrd.EndTurn(main, currentPlayer, currentCell);
         }
 
-        public void ReplayFacade(ref int turnOrder, Player currentPlayer, Button[] buttonList, 
+        public void ReplayFacade(ref int turnOrder, Player currentPlayer, Button[] buttonList,
             List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
             unredo.ReplayGame(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);

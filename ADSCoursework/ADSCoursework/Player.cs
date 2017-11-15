@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/* Author: Glenn Wilkie-Sullivan (40208762)
+ * Class Purpose: Contains logic for players.
+ * Date last modified: 15/11/2017
+ */
 
 namespace ADSCoursework
 {

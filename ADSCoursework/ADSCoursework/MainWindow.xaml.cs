@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Threading;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
+/* Author: Glenn Wilkie-Sullivan (40208762)
+ * Class Purpose: This contains the entry point for the program, and the
+ *                flow of control.
+ * Date last modified: 15/11/2017
+ */
 
 namespace ADSCoursework
 {
@@ -54,53 +48,68 @@ namespace ADSCoursework
             turns = new Stack<Turn>();
             unDoneTurns = new Stack<Turn>();
             
-            facade = new Facade(this);
+            facade = new Facade();
             facade.InitialFacade(this, whitePieces, blackPieces, buttonList, currentPlayer);
         }
 
         private void btnCell1_Click(object sender, RoutedEventArgs e)
         {
+            // Initialise a new turn,
             Turn turn = new Turn();
             int takenPiecePos = 0;
+            // Then set the clicked button as the current cell.
             currentCell = (Button)sender;
             
+            // Call the logic for moving a piece,
             facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            // As well as taking a piece if needed.
             facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
 
+            // If the turn order is 0 (Which should have been decremented by the move facade),
             if (turnOrder == 0 && currentPiece.GetPosition() != currentPiece.GetNewPosition())
             {
+                // Check if a piece was taken.
                 if (pieceTaken == true)
                 {
+                    // If so, update the struct.
                     turn.pieceTaken = true;
                     turn.takenPiecePos = takenPiecePos;
                 }
 
+                // Update the struct accordingly to record the turn.
                 turn.pieceColour = currentPiece.GetColour();
                 turn.piece1pos = currentPiece.GetPosition();
                 turn.piece1NewPos = currentPiece.GetNewPosition();
                 turns.Push(turn);
             }
 
+            // Set the global boolean back to false if needed, so more pieces can be taken.
             pieceTaken = false;
+            // Check that all the pieces are the correct colour.
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
+            // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
         }
 
+        // Call the logic to end a turn from the facade class.
         private void btnEndTurn_Click(object sender, RoutedEventArgs e)
         {
             facade.EndTurnFacade(this, currentPlayer, currentCell);
         }
 
+        // Undo logic from the facade class.
         private void btnUndo_Click(object sender, RoutedEventArgs e)
         {
             facade.UndoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
 
+        // Redo logic from the facade class.
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
-            facade.RedoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+            facade.RedoFacade(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
 
+        // Game replay logic from the facade class.
         private void btnReplay_Click(object sender, RoutedEventArgs e)
         {
             facade.ReplayFacade(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
