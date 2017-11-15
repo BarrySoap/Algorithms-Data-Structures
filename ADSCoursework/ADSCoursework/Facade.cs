@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Threading;
+using System.Timers;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -456,6 +456,10 @@ namespace ADSCoursework
             while (turns.Count > 0)
             {
                 this.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            }
+            while (undoneTurns.Count > 0)
+            {
+                this.RedoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
             }
         }
     }
