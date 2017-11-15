@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -448,6 +449,15 @@ namespace ADSCoursework
                 MessageBox.Show("No moves to redo!");
             }
         }
+
+        public void ReplayGame(ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+            Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
+        {
+            while (turns.Count > 0)
+            {
+                this.UndoMove(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            }
+        }
     }
 
     class TakePiece
@@ -517,6 +527,12 @@ namespace ADSCoursework
             cleaner.CleanEdges(blackPieces);
         }
 
+        public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces,
+            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, ref int takenPiecePos)
+        {
+            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
+        }
+
         public void UndoFacade(ref int turnOrder, Piece currentPiece, Player currentPlayer, Button[] buttonList,
             List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
@@ -534,10 +550,10 @@ namespace ADSCoursework
             turnOrd.EndTurn(main, currentPlayer, currentCell);
         }
 
-        public void TakeFacade(ref bool pieceTaken, Piece currentPiece, Button currentCell, List<Piece> whitePieces, List<Piece> blackPieces,
-            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Button[] buttonList, ref int takenPiecePos)
+        public void ReplayFacade(ref int turnOrder, Player currentPlayer, Button[] buttonList, 
+            List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
         {
-            tp.TakePieces(ref pieceTaken, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
+            unredo.ReplayGame(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
         }
     }
 }

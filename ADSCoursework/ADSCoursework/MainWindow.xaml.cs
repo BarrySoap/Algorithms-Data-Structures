@@ -99,5 +99,10 @@ namespace ADSCoursework
         {
             facade.RedoFacade(ref turnOrder, currentPiece, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
         }
+
+        private void btnReplay_Click(object sender, RoutedEventArgs e)
+        {
+            facade.ReplayFacade(ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+        }
     }
 }
