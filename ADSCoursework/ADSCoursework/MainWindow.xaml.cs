@@ -83,18 +83,18 @@ namespace ADSCoursework
                 turns.Push(turn);
             }
 
-            // Set the global boolean back to false if needed, so more pieces can be taken.
-            pieceTaken = false;
             // Check that all the pieces are the correct colour.
             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
             // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
-        }
+            
+            if (turnOrder == 0 && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false && pieceTaken == true)
+            {
+                facade.EndTurnFacade(this, currentPlayer, currentCell);
+            }
 
-        // Call the logic to end a turn from the facade class.
-        private void btnEndTurn_Click(object sender, RoutedEventArgs e)
-        {
-            facade.EndTurnFacade(this, currentPlayer, currentCell);
+            // Set the global boolean back to false if needed, so more pieces can be taken.
+            pieceTaken = false;
         }
 
         // Undo logic from the facade class.

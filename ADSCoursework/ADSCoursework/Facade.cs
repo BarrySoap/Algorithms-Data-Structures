@@ -271,20 +271,16 @@ namespace ADSCoursework
         public void EndTurn(MainWindow main, Player currentPlayer, Button currentCell)
         {
             // If there aren't any pieces currently highlighted,
-            if (currentPlayer.GetColour() == "White" && currentCell.Background != Brushes.Gold)
+            if (currentPlayer.GetColour() == "White")
             {
                 // The current player is the opposite of the previous turns' player.
                 currentPlayer.SetColour("Black");
                 main.txtTurnOrder.Text = "Turn: Black";
             }
-            else if (currentPlayer.GetColour() == "Black" && currentCell.Background != Brushes.Gold)
+            else if (currentPlayer.GetColour() == "Black")
             {
                 currentPlayer.SetColour("White");
                 main.txtTurnOrder.Text = "Turn: White";
-            }
-            else
-            {
-                MessageBox.Show("You can't end your turn while a piece is selected! Try an undo.");
             }
         }
     }

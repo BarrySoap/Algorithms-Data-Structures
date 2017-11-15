@@ -59,7 +59,7 @@ namespace ADSCoursework
                 {
                     // If the king is trying to make a regular move to a diagonal,
                     if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9 ||
-                        oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && buttonList[newPosition].Background == Brushes.Gray)
+                        oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && Validations.IsSpaceEmpty(buttonList[newPosition]) == true)
                     {
                         // The move is valid, return true.
                         return true;
@@ -106,7 +106,7 @@ namespace ADSCoursework
                 else if (currentPiece.GetColour() == "Black")
                 {
                     if (oldPosition - newPosition == 7 || oldPosition - newPosition == 9 ||
-                        oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && buttonList[newPosition].Background == Brushes.Gray)
+                        oldPosition - newPosition == -7 || oldPosition - newPosition == -9 && Validations.IsSpaceEmpty(buttonList[newPosition]) == true)
                     {
                         return true;
                     }
@@ -239,11 +239,11 @@ namespace ADSCoursework
             if (Operations.ComparePieces(currentPiece, whitePieces, blackPieces).IsPieceKing() == false)
             {
                 // Check if any of the diagonals have a piece which can be taken.
-                Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList);
+                Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetPosition());
             }
             else
             {
-                Operations.CheckKingDiagonal(currentPiece, whitePieces, blackPieces, buttonList);
+                Operations.CheckKingDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetPosition());
             }
         }
 

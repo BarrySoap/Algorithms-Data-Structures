@@ -229,29 +229,31 @@ namespace ADSCoursework
         }
 
         // This method is used to show that a piece can be taken.
-        public static void CheckDiagonal(Piece currentPiece, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
+        public static bool CheckDiagonal(Piece currentPiece, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList, int position)
         {
             if (currentPiece.GetColour() == "White")
             {
                 // Check that the position down a space to the right isn't going off the bottom of the board,
                 // as well as being a piece of the opposing faction, and not going from edge to edge.
-                if (currentPiece.GetPosition() - 7 > 0 && buttonList[currentPiece.GetPosition() - 7].Background == Brushes.Black &&
-                    Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() - 7) == false)
+                if (position - 7 > 0 && buttonList[position - 7].Background == Brushes.Black &&
+                    Operations.EdgeOperation(blackPieces, position - 7) == false)
                 {
                     // If the position down two spaces to the right is not off the bottom, as well as empty.
-                    if (currentPiece.GetPosition() - 14 > 0 && buttonList[currentPiece.GetPosition() - 14].Background == Brushes.Gray)
+                    if (position - 14 > 0 && buttonList[position - 14].Background == Brushes.Gray)
                     {
                         // If so, highlight that cell as a piece able to be taken.
-                        buttonList[currentPiece.GetPosition() - 7].Background = Brushes.Cyan;
+                        buttonList[position - 7].Background = Brushes.Cyan;
+                        return true;
                     }
                 }
                 // Check down to the left,
-                if (currentPiece.GetPosition() - 9 > 0 && buttonList[currentPiece.GetPosition() - 9].Background == Brushes.Black &&
-                     Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() - 9) == false)
+                if (position - 9 > 0 && buttonList[position - 9].Background == Brushes.Black &&
+                     Operations.EdgeOperation(blackPieces, position - 9) == false)
                 {
-                    if (currentPiece.GetPosition() - 18 > 0 && buttonList[currentPiece.GetPosition() - 18].Background == Brushes.Gray)
+                    if (position - 18 > 0 && buttonList[position - 18].Background == Brushes.Gray)
                     {
-                        buttonList[currentPiece.GetPosition() - 9].Background = Brushes.Cyan;
+                        buttonList[position - 9].Background = Brushes.Cyan;
+                        return true;
                     }
                 }
             }
@@ -259,99 +261,102 @@ namespace ADSCoursework
             if (currentPiece.GetColour() == "Black")
             {
                 // Check up to the right,
-                if (currentPiece.GetPosition() + 7 < 63 && buttonList[currentPiece.GetPosition() + 7].Background == Brushes.White &&
-                     Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() + 7) == false)
+                if (position + 7 < 63 && buttonList[position + 7].Background == Brushes.White &&
+                     Operations.EdgeOperation(whitePieces, position + 7) == false)
                 {
-                    if (currentPiece.GetPosition() + 14 < 63 && buttonList[currentPiece.GetPosition() + 14].Background == Brushes.Gray)
+                    if (position + 14 < 63 && buttonList[position + 14].Background == Brushes.Gray)
                     {
-                        buttonList[currentPiece.GetPosition() + 7].Background = Brushes.Cyan;
+                        buttonList[position + 7].Background = Brushes.Cyan;
+                        return true;
                     }
                 }
                 // Check up to the left.
-                if (currentPiece.GetPosition() + 9 < 63 && buttonList[currentPiece.GetPosition() + 9].Background == Brushes.White &&
-                     Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() + 9) == false)
+                if (position + 9 < 63 && buttonList[position + 9].Background == Brushes.White &&
+                     Operations.EdgeOperation(whitePieces, position + 9) == false)
                 {
-                    if (currentPiece.GetPosition() + 18 < 63 && buttonList[currentPiece.GetPosition() + 18].Background == Brushes.Gray)
+                    if (position + 18 < 63 && buttonList[position + 18].Background == Brushes.Gray)
                     {
-                        buttonList[currentPiece.GetPosition() + 9].Background = Brushes.Cyan;
+                        buttonList[position + 9].Background = Brushes.Cyan;
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         // This method is extremely similar to the last, except it takes into account the movement of the king.
-        public static void CheckKingDiagonal(Piece currentPiece, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList)
+        public static void CheckKingDiagonal(Piece currentPiece, List<Piece> whitePieces, List<Piece> blackPieces, Button[] buttonList, int position)
         {
             if (Operations.ComparePieces(currentPiece, whitePieces, blackPieces).IsPieceKing() == true)
             {
                 if (currentPiece.GetColour() == "White")
                 {
-                    if (currentPiece.GetPosition() - 7 > 0 && buttonList[currentPiece.GetPosition() - 7].Background == Brushes.Black &&
-                    Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() - 7) == false)
+                    if (position - 7 > 0 && buttonList[position - 7].Background == Brushes.Black &&
+                    Operations.EdgeOperation(blackPieces, position - 7) == false)
                     {
-                        if (currentPiece.GetPosition() - 14 > 0 && buttonList[currentPiece.GetPosition() - 14].Background == Brushes.Gray)
+                        if (position - 14 > 0 && buttonList[position - 14].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() - 7].Background = Brushes.Cyan;
+                            buttonList[position - 7].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() - 9 > 0 && buttonList[currentPiece.GetPosition() - 9].Background == Brushes.Black &&
-                         Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() - 9) == false)
+                    if (position - 9 > 0 && buttonList[position - 9].Background == Brushes.Black &&
+                         Operations.EdgeOperation(blackPieces, position - 9) == false)
                     {
-                        if (currentPiece.GetPosition() - 18 > 0 && buttonList[currentPiece.GetPosition() - 18].Background == Brushes.Gray)
+                        if (position - 18 > 0 && buttonList[position - 18].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() - 9].Background = Brushes.Cyan;
+                            buttonList[position - 9].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() + 7 < 63 && buttonList[currentPiece.GetPosition() + 7].Background == Brushes.Black &&
-                     Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() + 7) == false)
+                    if (position + 7 < 63 && buttonList[position + 7].Background == Brushes.Black &&
+                     Operations.EdgeOperation(blackPieces, position + 7) == false)
                     {
-                        if (currentPiece.GetPosition() + 14 < 63 && buttonList[currentPiece.GetPosition() + 14].Background == Brushes.Gray)
+                        if (position + 14 < 63 && buttonList[position + 14].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() + 7].Background = Brushes.Cyan;
+                            buttonList[position + 7].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() + 9 < 63 && buttonList[currentPiece.GetPosition() + 9].Background == Brushes.Black &&
-                         Operations.EdgeOperation(blackPieces, currentPiece.GetPosition() + 9) == false)
+                    if (position + 9 < 63 && buttonList[position + 9].Background == Brushes.Black &&
+                         Operations.EdgeOperation(blackPieces, position + 9) == false)
                     {
-                        if (currentPiece.GetPosition() + 18 < 63 && buttonList[currentPiece.GetPosition() + 18].Background == Brushes.Gray)
+                        if (position + 18 < 63 && buttonList[position + 18].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() + 9].Background = Brushes.Cyan;
+                            buttonList[position + 9].Background = Brushes.Cyan;
                         }
                     }
                 }
 
                 if (currentPiece.GetColour() == "Black")
                 {
-                    if (currentPiece.GetPosition() - 7 > 0 && buttonList[currentPiece.GetPosition() - 7].Background == Brushes.White &&
-                    Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() - 7) == false)
+                    if (position - 7 > 0 && buttonList[position - 7].Background == Brushes.White &&
+                    Operations.EdgeOperation(whitePieces, position - 7) == false)
                     {
-                        if (currentPiece.GetPosition() - 14 > 0 && buttonList[currentPiece.GetPosition() - 14].Background == Brushes.Gray)
+                        if (position - 14 > 0 && buttonList[position - 14].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() - 7].Background = Brushes.Cyan;
+                            buttonList[position - 7].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() - 9 > 0 && buttonList[currentPiece.GetPosition() - 9].Background == Brushes.White &&
-                         Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() - 9) == false)
+                    if (position - 9 > 0 && buttonList[position - 9].Background == Brushes.White &&
+                         Operations.EdgeOperation(whitePieces, position - 9) == false)
                     {
-                        if (currentPiece.GetPosition() - 18 > 0 && buttonList[currentPiece.GetPosition() - 18].Background == Brushes.Gray)
+                        if (position - 18 > 0 && buttonList[position - 18].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() - 9].Background = Brushes.Cyan;
+                            buttonList[position - 9].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() + 7 < 63 && buttonList[currentPiece.GetPosition() + 7].Background == Brushes.White &&
-                     Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() + 7) == false)
+                    if (position + 7 < 63 && buttonList[position + 7].Background == Brushes.White &&
+                     Operations.EdgeOperation(whitePieces, position + 7) == false)
                     {
-                        if (currentPiece.GetPosition() + 14 < 63 && buttonList[currentPiece.GetPosition() + 14].Background == Brushes.Gray)
+                        if (position + 14 < 63 && buttonList[position + 14].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() + 7].Background = Brushes.Cyan;
+                            buttonList[position + 7].Background = Brushes.Cyan;
                         }
                     }
-                    if (currentPiece.GetPosition() + 9 < 63 && buttonList[currentPiece.GetPosition() + 9].Background == Brushes.White &&
-                         Operations.EdgeOperation(whitePieces, currentPiece.GetPosition() + 9) == false)
+                    if (position + 9 < 63 && buttonList[position + 9].Background == Brushes.White &&
+                         Operations.EdgeOperation(whitePieces, position + 9) == false)
                     {
-                        if (currentPiece.GetPosition() + 18 < 63 && buttonList[currentPiece.GetPosition() + 18].Background == Brushes.Gray)
+                        if (position + 18 < 63 && buttonList[position + 18].Background == Brushes.Gray)
                         {
-                            buttonList[currentPiece.GetPosition() + 9].Background = Brushes.Cyan;
+                            buttonList[position + 9].Background = Brushes.Cyan;
                         }
                     }
                 }
