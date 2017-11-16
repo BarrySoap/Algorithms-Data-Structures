@@ -387,6 +387,12 @@ namespace ADSCoursework
                             Piece tempPiece = takenWhitePieces.ElementAt(i);
                             takenWhitePieces.RemoveAt(i);
                             tempPiece.SetTaken(false);
+
+                            if (temp.wasTakenPieceKing == true)
+                            {
+                                buttonList.ElementAt(temp.takenPiecePos).Content = "K";
+                                buttonList.ElementAt(temp.takenPiecePos).Foreground = Brushes.Black;
+                            }
                             // Then add it back to the original pieces list.
                             whitePieces.Add(tempPiece);
                             // Show it on the board.
@@ -400,6 +406,12 @@ namespace ADSCoursework
                             Piece tempPiece = takenBlackPieces.ElementAt(j);
                             takenBlackPieces.RemoveAt(j);
                             tempPiece.SetTaken(false);
+
+                            if (temp.wasTakenPieceKing == true)
+                            {
+                                buttonList.ElementAt(temp.takenPiecePos).Content = "K";
+                                buttonList.ElementAt(temp.takenPiecePos).Foreground = Brushes.White;
+                            }
                             blackPieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Black;
                         }
@@ -490,6 +502,7 @@ namespace ADSCoursework
                             tempPiece.SetTaken(true);
                             takenWhitePieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
+                            Operations.CheckColouring(whitePieces, blackPieces, buttonList);
                         }
                     }
                     for (int j = 0; j < blackPieces.Count; j++)
@@ -501,6 +514,7 @@ namespace ADSCoursework
                             tempPiece.SetTaken(true);
                             takenBlackPieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
+                            Operations.CheckColouring(whitePieces, blackPieces, buttonList);
                         }
                     }
                 }

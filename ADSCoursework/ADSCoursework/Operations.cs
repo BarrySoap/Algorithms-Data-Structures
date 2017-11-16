@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
@@ -363,7 +366,8 @@ namespace ADSCoursework
             }
         }
 
-        public static void EditTurn(Piece currentPiece, ref bool pieceTaken, ref int takenPiecePos, MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
+        public static void EditTurn(Piece currentPiece, Button[] buttonList, ref bool pieceTaken, ref int takenPiecePos, 
+                                    MainWindow.Turn turn, Stack<MainWindow.Turn> turns)
         {
             // Check if a piece was taken.
             if (pieceTaken == true)
@@ -371,6 +375,11 @@ namespace ADSCoursework
                 // If so, update the struct.
                 turn.pieceTaken = true;
                 turn.takenPiecePos = takenPiecePos;
+                
+                if (buttonList.ElementAt(turn.takenPiecePos).Content.ToString() == "K")
+                {
+                    turn.wasTakenPieceKing = true;
+                }
             }
             // Update the struct accordingly to record the turn.
             turn.pieceColour = currentPiece.GetColour();

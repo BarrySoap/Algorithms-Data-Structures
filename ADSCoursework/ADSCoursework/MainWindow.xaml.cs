@@ -42,6 +42,7 @@ namespace ADSCoursework
             public int takenPiecePos;
             public bool pieceTaken;
             public bool wasPieceKing;
+            public bool wasTakenPieceKing;
         }
         /*****************************/
 
@@ -72,7 +73,7 @@ namespace ADSCoursework
             // If the turn order is 0 (Which should have been decremented by the move facade),
             if (turnOrder == 0 && currentPiece.GetPosition() != currentPiece.GetNewPosition())
             {
-                Operations.EditTurn(currentPiece, ref pieceTaken, ref takenPiecePos, turn, turns);
+                Operations.EditTurn(currentPiece, buttonList, ref pieceTaken, ref takenPiecePos, turn, turns);
             }
 
             // Check that all the pieces are the correct colour.
