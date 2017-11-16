@@ -225,7 +225,7 @@ namespace ADSCoursework
             {
                 if (buttonList[k].Content.ToString() == "K" && buttonList[k].Background == Brushes.Gray)
                 {
-                    buttonList[k].Content = buttonList[k].Name.Substring(7);
+                    buttonList[k].Content = "";
                     buttonList[k].Foreground = Brushes.Black;
                 }
             }

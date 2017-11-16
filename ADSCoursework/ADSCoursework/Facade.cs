@@ -41,7 +41,6 @@ namespace ADSCoursework
                 // Each button begins with the name: "btnCell", followed by a number for it's index in the list.
                 buttonList[i] = (Button)main.FindName("btnCell" + i);
                 buttonList[i].Background = Brushes.Gray;
-                buttonList[i].Content = buttonList[i].Name.Substring(7);
             }
 
             for (int i = 0; i < 64; i++)
@@ -370,7 +369,6 @@ namespace ADSCoursework
                             // set it back to a regular piece.
                             if (temp.wasPieceKing == true && temp.piece1NewPos < 8)
                             {
-                                buttonList.ElementAt(temp.piece1pos).Content = buttonList.ElementAt(temp.piece1pos).Name.Substring(7);
                                 buttonList.ElementAt(temp.piece1pos).Foreground = Brushes.Black;
                                 Operations.ComparePieces(currentPiece, whitePieces, blackPieces).SetPieceAsKing(false);
                             }
@@ -415,9 +413,8 @@ namespace ADSCoursework
                             main.txtTurnOrder.Text = "Turn: Black";
                             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
 
-                            if (temp.wasPieceKing == true && temp.piece1NewPos > 55 && temp.piece1NewPos < 64)
+                            if (temp.wasPieceKing == true && temp.piece1NewPos > 56)
                             {
-                                buttonList.ElementAt(temp.piece1pos).Content = buttonList.ElementAt(temp.piece1pos).Name.Substring(7);
                                 buttonList.ElementAt(temp.piece1pos).Foreground = Brushes.Black;
                                 Operations.ComparePieces(currentPiece, whitePieces, blackPieces).SetPieceAsKing(false);
                             }
@@ -522,6 +519,13 @@ namespace ADSCoursework
                             takenBlackPieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
                             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
+
+                            if (temp.wasPieceKing == true && temp.piece1NewPos > 55)
+                            {
+                                buttonList.ElementAt(temp.piece1NewPos).Content = "K";
+                                buttonList.ElementAt(temp.piece1NewPos).Foreground = Brushes.Black;
+                                Operations.ComparePieces(currentPiece, whitePieces, blackPieces).SetPieceAsKing(true);
+                            }
                         }
                     }
                 }
