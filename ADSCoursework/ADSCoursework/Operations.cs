@@ -381,6 +381,10 @@ namespace ADSCoursework
             {
                 turn.wasPieceKing = true;
             }
+            if (turn.piece1NewPos < 8)
+            {
+                turn.wasPieceKing = true;
+            }
 
             turns.Push(turn);
         }

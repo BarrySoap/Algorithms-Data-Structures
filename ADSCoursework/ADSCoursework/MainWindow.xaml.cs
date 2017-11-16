@@ -107,7 +107,7 @@ namespace ADSCoursework
         // Game replay logic from the facade class.
         private void btnReplay_Click(object sender, RoutedEventArgs e)
         {
-            facade.ReplayFacade(this, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+            facade.ReplayFacade(this, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns, currentPiece);
         }
     }
 }

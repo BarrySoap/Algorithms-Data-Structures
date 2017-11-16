@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -248,8 +250,7 @@ namespace ADSCoursework
         }
 
         // This method is used as a constant check to make sure the attributes of a king piece are correct.
-        public static void IsPieceKing(Button cell, Piece currentPiece, Button[] buttonList, int oldPosition, int newPosition, ref bool pieceTaken,
-                List<Piece> whitePieces, List<Piece> blackPieces)
+        public static void IsPieceKing(Piece currentPiece, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
         {
             // If a black piece has reached the top of the board (opposite side),
             if (currentPiece.GetColour() == "Black" && currentPiece.GetNewPosition() > 55
@@ -263,8 +264,8 @@ namespace ADSCoursework
                         // Make it a king,
                         blackPieces[i].SetPieceAsKing(true);
                         // and give it a new look.
-                        cell.Content = "K";
-                        cell.Foreground = Brushes.White;
+                        buttonList.ElementAt(currentPiece.GetNewPosition()).Content = "K";
+                        buttonList.ElementAt(currentPiece.GetNewPosition()).Foreground = Brushes.White;
                     }
                 }
             }
@@ -276,8 +277,8 @@ namespace ADSCoursework
                     if (currentPiece.GetNewPosition() == whitePieces[i].GetNewPosition())
                     {
                         whitePieces[i].SetPieceAsKing(true);
-                        cell.Content = "K";
-                        cell.Foreground = Brushes.Black;
+                        buttonList.ElementAt(currentPiece.GetNewPosition()).Content = "K";
+                        buttonList.ElementAt(currentPiece.GetNewPosition()).Foreground = Brushes.Black;
                     }
                 }
             }
