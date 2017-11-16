@@ -402,20 +402,26 @@ namespace ADSCoursework
         {
             Piece tempPiece = currentPiece;
 
-            for (int i = 0; i < whitePieces.Count; i++)
+            if (currentPiece.GetColour() == "White")
             {
-                if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, whitePieces[i].GetNewPosition()) == true)
+                for (int i = 0; i < whitePieces.Count; i++)
                 {
-                    tempPiece = whitePieces[i];
-                    return tempPiece;
+                    if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, whitePieces[i].GetNewPosition()) == true)
+                    {
+                        tempPiece = whitePieces[i];
+                        return tempPiece;
+                    }
                 }
-            }
-            for (int i = 0; i < blackPieces.Count; i++)
+            } 
+            if (currentPiece.GetColour() == "Black")
             {
-                if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, blackPieces[i].GetNewPosition()) == true)
+                for (int i = 0; i < blackPieces.Count; i++)
                 {
-                    tempPiece = blackPieces[i];
-                    return tempPiece;
+                    if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, blackPieces[i].GetNewPosition()) == true)
+                    {
+                        tempPiece = blackPieces[i];
+                        return tempPiece;
+                    }
                 }
             }
             return tempPiece;

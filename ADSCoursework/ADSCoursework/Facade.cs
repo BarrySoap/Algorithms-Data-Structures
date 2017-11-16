@@ -153,54 +153,58 @@ namespace ADSCoursework
                     currentPiece.SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                     currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
 
-                    if (Operations.CheckForMove(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces).GetNewPosition() == currentPiece.GetNewPosition())
+                    if (Validations.IsSpaceEmpty(currentCell) == false)
                     {
-                        // If the space isn't empty:
-                        if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
+                        if (Operations.CheckForMove(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces).GetNewPosition() == currentPiece.GetNewPosition())
                         {
-                            // This validation will highlight cells as cyan based on
-                            // whether or not they can be taken.
-                            Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces);
-                            // Highlight the currently selected cell as gold.
-                            currentCell.Background = Brushes.Gold;
-
-                            // If it passes, set the new position.
-                            for (int i = 0; i < whitePieces.Count; i++)
+                            // If the space isn't empty:
+                            if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
                             {
-                                if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                // This validation will highlight cells as cyan based on
+                                // whether or not they can be taken.
+                                Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces);
+                                // Highlight the currently selected cell as gold.
+                                currentCell.Background = Brushes.Gold;
+
+                                // If it passes, set the new position.
+                                for (int i = 0; i < whitePieces.Count; i++)
                                 {
-                                    whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                    if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                    {
+                                        whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                    }
                                 }
-                            }
-                            // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
-                            for (int i = 0; i < blackPieces.Count; i++)
-                            {
-                                if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
+                                for (int i = 0; i < blackPieces.Count; i++)
                                 {
-                                    blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                    if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                    {
+                                        blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                    }
                                 }
-                            }
 
-                            validMoveMade = true;
+                                validMoveMade = true;
 
-                            // Increment the turn order.
-                            turnOrder++;
-                        }
-                    } else
-                    {
-                        for (int i = 0; i < buttonList.Length; i++)
-                        {
-                            if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
-                            {
-                                buttonList[i].Background = Brushes.Black;
-                            }
-                            else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
-                            {
-                                buttonList[i].Background = Brushes.White;
+                                // Increment the turn order.
+                                turnOrder++;
                             }
                         }
-                        validMoveMade = false;
-                        MessageBox.Show("A piece can be taken!");
+                        else
+                        {
+                            for (int i = 0; i < buttonList.Length; i++)
+                            {
+                                if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
+                                {
+                                    buttonList[i].Background = Brushes.Black;
+                                }
+                                else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                                {
+                                    buttonList[i].Background = Brushes.White;
+                                }
+                            }
+                            validMoveMade = false;
+                            MessageBox.Show("A piece can be taken!");
+                        }
                     }
                     
                     break;
@@ -373,6 +377,29 @@ namespace ADSCoursework
                         }
                     }
                 }
+
+                // If a piece was taken during the turn,
+                if (temp.pieceTaken == true && temp.pieceColour == "White")
+                {
+                    for (int j = 0; j < takenBlackPieces.Count; j++)
+                    {
+                        if (temp.takenPiecePos == takenBlackPieces[j].GetPosition() || temp.takenPiecePos == takenBlackPieces[j].GetNewPosition())
+                        {
+                            Piece tempPiece = takenBlackPieces.ElementAt(j);
+                            takenBlackPieces.RemoveAt(j);
+                            tempPiece.SetTaken(false);
+
+                            if (temp.wasTakenPieceKing == true)
+                            {
+                                buttonList.ElementAt(temp.takenPiecePos).Content = "K";
+                                buttonList.ElementAt(temp.takenPiecePos).Foreground = Brushes.White;
+                            }
+                            blackPieces.Add(tempPiece);
+                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Black;
+                        }
+                    }
+                }
+
                 for (int i = 0; i < blackPieces.Count; i++)
                 {
                     if (temp.pieceColour == "Black")
@@ -399,7 +426,7 @@ namespace ADSCoursework
                 }
 
                 // If a piece was taken during the turn,
-                if (temp.pieceTaken == true)
+                if (temp.pieceTaken == true && temp.pieceColour == "Black")
                 {
                     for (int i = 0; i < takenWhitePieces.Count; i++)
                     {
@@ -420,23 +447,6 @@ namespace ADSCoursework
                             whitePieces.Add(tempPiece);
                             // Show it on the board.
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.White;
-                        }
-                    }
-                    for (int j = 0; j < takenBlackPieces.Count; j++)
-                    {
-                        if (temp.takenPiecePos == takenBlackPieces[j].GetPosition() || temp.takenPiecePos == takenBlackPieces[j].GetNewPosition())
-                        {
-                            Piece tempPiece = takenBlackPieces.ElementAt(j);
-                            takenBlackPieces.RemoveAt(j);
-                            tempPiece.SetTaken(false);
-
-                            if (temp.wasTakenPieceKing == true)
-                            {
-                                buttonList.ElementAt(temp.takenPiecePos).Content = "K";
-                                buttonList.ElementAt(temp.takenPiecePos).Foreground = Brushes.White;
-                            }
-                            blackPieces.Add(tempPiece);
-                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Black;
                         }
                     }
                 }
@@ -499,6 +509,23 @@ namespace ADSCoursework
                         }
                     }
                 }
+
+                if (temp.pieceTaken == true && temp.pieceColour == "White")
+                {
+                    for (int j = 0; j < blackPieces.Count; j++)
+                    {
+                        if (temp.takenPiecePos == blackPieces[j].GetPosition() || temp.takenPiecePos == blackPieces[j].GetNewPosition())
+                        {
+                            Piece tempPiece = blackPieces.ElementAt(j);
+                            blackPieces.RemoveAt(j);
+                            tempPiece.SetTaken(true);
+                            takenBlackPieces.Add(tempPiece);
+                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
+                            Operations.CheckColouring(whitePieces, blackPieces, buttonList);
+                        }
+                    }
+                }
+
                 for (int i = 0; i < blackPieces.Count; i++)
                 {
                     if (temp.pieceColour == "Black")
@@ -514,7 +541,7 @@ namespace ADSCoursework
                     }
                 }
 
-                if (temp.pieceTaken == true)
+                if (temp.pieceTaken == true && temp.pieceColour == "Black")
                 {
                     for (int i = 0; i < whitePieces.Count; i++)
                     {
@@ -524,18 +551,6 @@ namespace ADSCoursework
                             whitePieces.RemoveAt(i);
                             tempPiece.SetTaken(true);
                             takenWhitePieces.Add(tempPiece);
-                            buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
-                            Operations.CheckColouring(whitePieces, blackPieces, buttonList);
-                        }
-                    }
-                    for (int j = 0; j < blackPieces.Count; j++)
-                    {
-                        if (temp.takenPiecePos == blackPieces[j].GetPosition() || temp.takenPiecePos == blackPieces[j].GetNewPosition())
-                        {
-                            Piece tempPiece = blackPieces.ElementAt(j);
-                            blackPieces.RemoveAt(j);
-                            tempPiece.SetTaken(true);
-                            takenBlackPieces.Add(tempPiece);
                             buttonList.ElementAt(temp.takenPiecePos).Background = Brushes.Gray;
                             Operations.CheckColouring(whitePieces, blackPieces, buttonList);
                         }
