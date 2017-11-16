@@ -80,10 +80,11 @@ namespace ADSCoursework
             // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
             
-            if (turnOrder == 0 && pieceTaken == false && currentCell.Background != Brushes.Gray)
+            if (turnOrder == 0 && pieceTaken == false && currentCell.Background != Brushes.Gray && Validations.IsPieceYours(currentCell, currentPlayer) == true)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
-            } else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false)
+            } else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false &&
+                       Validations.IsPieceYours(currentCell, currentPlayer) == true)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
             }
@@ -101,7 +102,7 @@ namespace ADSCoursework
         // Redo logic from the facade class.
         private void btnRedo_Click(object sender, RoutedEventArgs e)
         {
-            facade.RedoFacade(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns);
+            facade.RedoFacade(this, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, unDoneTurns, currentPiece);
         }
 
         // Game replay logic from the facade class.

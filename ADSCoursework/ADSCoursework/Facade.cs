@@ -426,8 +426,8 @@ namespace ADSCoursework
             }
         }
 
-        public void RedoMove(Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
-            Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
+        public void RedoMove(MainWindow main, ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+            Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns, Piece currentPiece)
         {
             // Check if any moves were undone.
             if (undoneTurns.Count > 0)
@@ -445,11 +445,22 @@ namespace ADSCoursework
                         if (temp.piece1pos == whitePieces[i].GetPosition() ||
                         temp.piece1NewPos == whitePieces[i].GetPosition() || temp.piece1NewPos == whitePieces[i].GetNewPosition())
                         {
+                            Validations.IsPieceKing(currentPiece, buttonList, whitePieces, blackPieces);
                             // The original cell is then set back to empty,
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
                             whitePieces[i].SetNewPosition(temp.piece1NewPos);
                             // Whereas the new cell as rechosen as the position.
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.White;
+                            currentPlayer.SetColour("Black");
+                            main.txtTurnOrder.Text = "Turn: Black";
+                            Operations.CheckColouring(whitePieces, blackPieces, buttonList);
+
+                            if (temp.wasPieceKing == true && temp.piece1NewPos < 8)
+                            {
+                                buttonList.ElementAt(temp.piece1NewPos).Content = "K";
+                                buttonList.ElementAt(temp.piece1NewPos).Foreground = Brushes.Black;
+                                Operations.ComparePieces(currentPiece, whitePieces, blackPieces).SetPieceAsKing(true);
+                            }
                         }
                     }
                 }
@@ -460,6 +471,7 @@ namespace ADSCoursework
                         if (temp.piece1pos == blackPieces[i].GetPosition() ||
                         temp.piece1NewPos == blackPieces[i].GetPosition() || temp.piece1NewPos == blackPieces[i].GetNewPosition())
                         {
+                            Validations.IsPieceKing(currentPiece, buttonList, whitePieces, blackPieces);
                             buttonList.ElementAt(temp.piece1pos).Background = Brushes.Gray;
                             blackPieces[i].SetNewPosition(temp.piece1NewPos);
                             buttonList.ElementAt(temp.piece1NewPos).Background = Brushes.Black;
@@ -512,7 +524,7 @@ namespace ADSCoursework
             while (undoneTurns.Count > 0)
             {
                 // Then redo all the moves as a replay.
-                this.RedoMove(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+                this.RedoMove(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns, currentPiece);
             }
         }
     }
@@ -604,10 +616,10 @@ namespace ADSCoursework
             unredo.UndoMove(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns, currentPiece);
         }
 
-        public void RedoFacade(Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces, Stack<MainWindow.Turn> turns,
-            List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns)
+        public void RedoFacade(MainWindow main, ref int turnOrder, Player currentPlayer, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces,
+            Stack<MainWindow.Turn> turns, List<Piece> takenWhitePieces, List<Piece> takenBlackPieces, Stack<MainWindow.Turn> undoneTurns, Piece currentPiece)
         {
-            unredo.RedoMove(buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns);
+            unredo.RedoMove(main, ref turnOrder, currentPlayer, buttonList, whitePieces, blackPieces, turns, takenWhitePieces, takenBlackPieces, undoneTurns, currentPiece);
         }
 
         public void EndTurnFacade(MainWindow main, Player currentPlayer, Button currentCell)
