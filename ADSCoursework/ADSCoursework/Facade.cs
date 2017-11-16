@@ -131,7 +131,7 @@ namespace ADSCoursework
     {
         // This class/method contains all of the logic for the basic movement of a piece.
         public void MovePiece(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer,
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, ref bool validMoveMade)
         {
             // Turn order is split into 2 parts: 0, which involves the player selecting a piece to move,
             // and 1, which involves the player moving the piece to a new location.
@@ -153,35 +153,56 @@ namespace ADSCoursework
                     currentPiece.SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
                     currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
 
-                    // If the space isn't empty:
-                    if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
+                    if (Operations.CheckForMove(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces).GetNewPosition() == currentPiece.GetNewPosition())
                     {
-                        // This validation will highlight cells as cyan based on
-                        // whether or not they can be taken.
-                        Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces);
-                        // Highlight the currently selected cell as gold.
-                        currentCell.Background = Brushes.Gold;
-
-                        // If it passes, set the new position.
-                        for (int i = 0; i < whitePieces.Count; i++)
+                        // If the space isn't empty:
+                        if (Validations.IsSpaceEmpty(currentCell) == false && Validations.IsPieceYours(currentCell, currentPlayer))
                         {
-                            if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                            // This validation will highlight cells as cyan based on
+                            // whether or not they can be taken.
+                            Validations.CanPieceBeTaken(currentCell, ref currentPiece, buttonList, whitePieces, blackPieces);
+                            // Highlight the currently selected cell as gold.
+                            currentCell.Background = Brushes.Gold;
+
+                            // If it passes, set the new position.
+                            for (int i = 0; i < whitePieces.Count; i++)
                             {
-                                whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                if (currentPlayer.GetColour() == "White" && whitePieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                {
+                                    whitePieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                }
+                            }
+                            // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
+                            for (int i = 0; i < blackPieces.Count; i++)
+                            {
+                                if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
+                                {
+                                    blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
+                                }
+                            }
+
+                            validMoveMade = true;
+
+                            // Increment the turn order.
+                            turnOrder++;
+                        }
+                    } else
+                    {
+                        for (int i = 0; i < buttonList.Length; i++)
+                        {
+                            if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "White")
+                            {
+                                buttonList[i].Background = Brushes.Black;
+                            }
+                            else if (buttonList[i].Background == Brushes.Cyan && currentPlayer.GetColour() == "Black")
+                            {
+                                buttonList[i].Background = Brushes.White;
                             }
                         }
-                        // This needs to be 2 separate for loops, to account for pieces being taken (can't use the same range value).
-                        for (int i = 0; i < blackPieces.Count; i++)
-                        {
-                            if (currentPlayer.GetColour() == "Black" && blackPieces[i].GetNewPosition() == currentPiece.GetPosition())
-                            {
-                                blackPieces[i].SetPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
-                            }
-                        }
-
-                        // Increment the turn order.
-                        turnOrder++;
+                        validMoveMade = false;
+                        MessageBox.Show("A piece can be taken!");
                     }
+                    
                     break;
                 case 1:
                     currentPiece.SetNewPosition(Convert.ToInt32(currentCell.Name.ToString().Substring(7)));
@@ -241,6 +262,8 @@ namespace ADSCoursework
 
                                 // Check if the piece is a king. If so, update accordingly.
                                 Validations.IsPieceKing(currentPiece, buttonList, whitePieces, blackPieces);
+
+                                validMoveMade = true;
 
                                 // Decrement the turn order so that more moves can be made.
                                 turnOrder--;
@@ -611,9 +634,9 @@ namespace ADSCoursework
         }
 
         public void MoveFacade(Piece currentPiece, ref int turnOrder, Button currentCell, Button[] buttonList, ref Player currentPlayer,
-            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces)
+            ref bool pieceTaken, List<Piece> whitePieces, List<Piece> blackPieces, ref bool validMoveMade)
         {
-            turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            turnOrd.MovePiece(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, ref validMoveMade);
             cleaner.CleanEdges(whitePieces);
             cleaner.CleanEdges(blackPieces);
         }

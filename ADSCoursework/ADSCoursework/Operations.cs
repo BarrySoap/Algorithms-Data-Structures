@@ -397,5 +397,28 @@ namespace ADSCoursework
 
             turns.Push(turn);
         }
+
+        public static Piece CheckForMove(Button currentCell, ref Piece currentPiece, Button[] buttonList, List<Piece> whitePieces, List<Piece> blackPieces)
+        {
+            Piece tempPiece = currentPiece;
+
+            for (int i = 0; i < whitePieces.Count; i++)
+            {
+                if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, whitePieces[i].GetNewPosition()) == true)
+                {
+                    tempPiece = whitePieces[i];
+                    return tempPiece;
+                }
+            }
+            for (int i = 0; i < blackPieces.Count; i++)
+            {
+                if (Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, blackPieces[i].GetNewPosition()) == true)
+                {
+                    tempPiece = blackPieces[i];
+                    return tempPiece;
+                }
+            }
+            return tempPiece;
+        }
     }
 }

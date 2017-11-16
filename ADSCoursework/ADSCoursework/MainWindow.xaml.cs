@@ -33,6 +33,7 @@ namespace ADSCoursework
         public Stack<Turn> unDoneTurns;
         int turnOrder = 0;
         bool pieceTaken = false;
+        bool validMoveMade = false;
 
         public struct Turn
         {
@@ -66,7 +67,7 @@ namespace ADSCoursework
             currentCell = (Button)sender;
             
             // Call the logic for moving a piece,
-            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces);
+            facade.MoveFacade(currentPiece, ref turnOrder, currentCell, buttonList, ref currentPlayer, ref pieceTaken, whitePieces, blackPieces, ref validMoveMade);
             // As well as taking a piece if needed.
             facade.TakeFacade(ref pieceTaken, currentPiece, currentCell, whitePieces, blackPieces, takenWhitePieces, takenBlackPieces, buttonList, ref takenPiecePos);
 
@@ -81,10 +82,12 @@ namespace ADSCoursework
             // Check if the game has ended.
             Validations.HasGameEnded(this, whitePieces, blackPieces);
             
-            if (turnOrder == 0 && pieceTaken == false && currentCell.Background != Brushes.Gray && Validations.IsPieceYours(currentCell, currentPlayer) == true)
+            if (turnOrder == 0 && pieceTaken == false && currentCell.Background != Brushes.Gray && Validations.IsPieceYours(currentCell, currentPlayer) == true &&
+                validMoveMade == true)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
-            } else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false &&
+            }
+            else if (turnOrder == 0 && pieceTaken == true && Operations.CheckDiagonal(currentPiece, whitePieces, blackPieces, buttonList, currentPiece.GetNewPosition()) == false &&
                        Validations.IsPieceYours(currentCell, currentPlayer) == true)
             {
                 facade.EndTurnFacade(this, currentPlayer, currentCell);
